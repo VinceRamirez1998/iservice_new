@@ -58,4 +58,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Service::class, 'service_user');
     }
 
+    public function canAccessFilament(): bool
+    {
+        return $this->hasRole('admin' || 'Admin');
+    }
+
 }

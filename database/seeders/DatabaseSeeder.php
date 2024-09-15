@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\User;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Service;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,14 +15,71 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
+        // Create a default admin user
         $user = User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
+            'password' => bcrypt('admin'), // Set a default password
         ]);
 
-        $role = Role::create(['name' => 'admin']);
-        $user->assignRole($role);
+        // Define roles
+        $roles = [
+            'admin',
+            'provider',
+            'customer',
+        ];
+
+        // Create roles
+        foreach ($roles as $role) {
+            Role::firstOrCreate(['name' => trim($role), 'guard_name' => 'web']);
+        }
+
+        // Assign the 'admin' role to the default user
+        $adminRole = Role::where('name', 'admin')->first();
+        if ($adminRole) {
+            $user->assignRole($adminRole);
+        }
+
+        // Define permissions
+        $permissions = [
+            'View Role',
+            'Create Role',
+            'Update Role',
+            'Delete Role',
+            'CRUD Role',
+            'Create Permission',
+            'View Permission',
+            'Update Permission',
+            'Delete Permission',
+            'CRUD Permission',
+            'Create Service',
+            'View Service',
+            'Update Service',
+            'Delete Service',
+            'CRUD Service',
+            'Create User',
+            'View User',
+            'Update User',
+            'Delete User',
+            'CRUD User',
+        ];
+
+        // Create permissions
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => trim($permission), 'guard_name' => 'web']);
+        }
+
+        // Define services
+        $services = [
+            'Car Mechanic',
+            'Electrician',
+            'Technician Appliances',
+            'Plumber',
+        ];
+
+        // Create services
+        foreach ($services as $service) {
+            Service::firstOrCreate(['name' => trim($service)]);
+        }
     }
 }

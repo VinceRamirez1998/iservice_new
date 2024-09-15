@@ -3,12 +3,11 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
-// use App\Models\Role;
-// use App\Models\Role;
+use App\Models\Role;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Role;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -31,7 +30,8 @@ class RoleResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->maxLength(255),
+                ->maxLength(255)
+                ->unique(),
             ]);
     }
 
@@ -39,7 +39,9 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-              
+                TextColumn::make('name')
+                ->searchable()
+                ->sortable(),
             ])
             ->filters([
                 //
@@ -71,4 +73,5 @@ class RoleResource extends Resource
             'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
+
 }
