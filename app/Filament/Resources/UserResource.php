@@ -40,6 +40,15 @@ class UserResource extends Resource
                     ->relationship('services', 'name')->preload()
                     ->placeholder('N/A'),
                     Forms\Components\TextInput::make('email')->unique(ignoreRecord: true)->email()->required()->maxLength(255),
+                    Select::make('gender')
+                    ->label('Gender')
+                    ->options([
+                        'Male' => 'Male',
+                        'Female' => 'Female',
+                    ]),
+                    TextInput::make('phone')
+                    ->label('Contact No.')
+                    ->maxLength(255),
                     Forms\Components\TextInput::make('password')
                     ->password()
                     ->unique()
@@ -107,6 +116,15 @@ class UserResource extends Resource
                     Tables\Columns\TextColumn::make('email')
                         ->searchable()
                         ->sortable(),
+                    Tables\Columns\TextColumn::make('gender')
+                        ->searchable()
+                        ->sortable()
+                        ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('phone')
+                        ->label('Contact No.')
+                        ->searchable()
+                        ->sortable()
+                        ->toggleable(isToggledHiddenByDefault: true),
                    
                     Tables\Columns\TextColumn::make('updated_at')
                         ->dateTime('d-M-Y g:i A') // Format as 15-Sep-2024 5:04 PM

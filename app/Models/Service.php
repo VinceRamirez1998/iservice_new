@@ -11,7 +11,19 @@ class Service extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
+        'email',
+        'password',
+        'phone',
+        'complete_address',
+        'role',
+        'permission',
+        'primary_id',
+        'secondary_id',
+        'service',
+        'certification',
+        'gender'
     ];
 
     public function users()

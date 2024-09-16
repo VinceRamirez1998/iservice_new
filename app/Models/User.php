@@ -23,13 +23,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
         'complete_address',
         'role',
         'permission',
         'primary_id',
         'secondary_id',
         'service',
-        'certification'
+        'certification',
+        'gender'
     ];
 
     /**
@@ -53,10 +55,16 @@ class User extends Authenticatable
     ];
 
 
-    public function services()
-    {
-        return $this->belongsToMany(Service::class, 'service_user');
-    }
+    // public function services()
+    // {
+    //     return $this->belongsToMany(Service::class, 'service_user');
+    // }
+
+        public function service()
+        {
+            return $this->hasOne(Service::class);
+        }
+
 
     public function canAccessFilament(): bool
     {

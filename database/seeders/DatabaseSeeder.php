@@ -71,10 +71,10 @@ class DatabaseSeeder extends Seeder
 
         // Define services
         $services = [
-            'Car Mechanic',
-            'Electrician',
-            'Technician Appliances',
-            'Plumber',
+            'Appliances Services',
+            'Electrical Services',
+            'Plumbing Services',
+            'Mechanic Services',
         ];
 
         // Create services
