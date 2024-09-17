@@ -49,7 +49,7 @@
         Please allow 1-2 days for confirmation.
         </p>
         <div class="text-center">
-            <a href="{{ url('/admin/login') }}" class="text-blue-400 hover:text-blue-300 text-sm">
+            <a href="{{ url('http://127.0.0.1:8000/admin/login') }}" class="text-blue-400 hover:text-blue-300 text-sm">
                 Go Back to Homepage
             </a>
         </div>

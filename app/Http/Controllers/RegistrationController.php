@@ -21,12 +21,25 @@ class RegistrationController extends Controller
         $user = Auth::user(); // Retrieve the authenticated user
 
         // Ensure the user is authenticated and has a pending status
-        if ($user && $user->status === 'pending') {
+        if ($user->status === 'pending' || $user->status === 'approved') {
             return view('auth.pending', ['user' => $user]);
         }
 
         // Redirect to home or show an error if not pending
         return redirect('/')->with('error', 'Account status not pending or user not authenticated.');
+    }
+
+    public function showApprovedPage()
+    {
+        $user = Auth::user(); // Retrieve the authenticated user
+
+        // Ensure the user is authenticated and has an approved status
+        if ($user && $user->status === 'approved') {
+            return view('auth.approved', ['user' => $user]);
+        }
+
+        // Redirect to home or show an error if not approved
+        return redirect('/')->with('error', 'Account status not approved or user not authenticated.');
     }
 
     public function register(Request $request)
