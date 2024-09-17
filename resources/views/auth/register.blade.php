@@ -59,39 +59,39 @@
         <form id="registration-form" method="post" action="{{ route('register.post') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
-           <!-- Role Selection -->
-           <div class="mb-6">
-            <label class="block text-xl font-bold text-white mb-4">Register as</label>
-            <div class="flex gap-6">
-                <!-- Customer Radio Button -->
-                <label class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
-                    <input id="role_customer" type="radio" name="role" value="customer" checked
-                           class="hidden peer"
-                           onclick="toggleFormFields('customer')" required>
-                    <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
-                        <i class="fas fa-user text-gray-800 peer-checked:text-white"></i>
-                    </div>
-                    <span class="ml-3 text-gray-800 peer-checked:text-white">Customer</span>
-                </label>
+            <!-- Role Selection -->
+            <div class="mb-6">
+                <label class="block text-xl font-bold text-white mb-4">Register as</label>
+                <div class="flex gap-6">
+                    <!-- Customer Radio Button -->
+                    <label for="role_customer" class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
+                        <input id="role_customer" type="radio" name="role" value="customer" checked
+                               class="hidden peer"
+                               onclick="toggleFormFields('customer')" required>
+                        <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
+                            <i class="fas fa-user text-gray-800 peer-checked:text-white"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800 peer-checked:text-white">Customer</span>
+                    </label>
         
-                <!-- Services Provider Radio Button -->
-                <label class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
-                    <input id="role_provider" type="radio" name="role" value="provider"
-                           class="hidden peer"
-                           onclick="toggleFormFields('provider')" required>
-                    <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
-                        <i class="fas fa-cogs text-gray-800 peer-checked:text-white"></i>
-                    </div>
-                    <span class="ml-3 text-gray-800 peer-checked:text-white">Services Provider</span>
-                </label>
+                    <!-- Services Provider Radio Button -->
+                    <label for="role_provider" class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
+                        <input id="role_provider" type="radio" name="role" value="provider"
+                               class="hidden peer"
+                               onclick="toggleFormFields('provider')" required>
+                        <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
+                            <i class="fas fa-cogs text-gray-800 peer-checked:text-white"></i>
+                        </div>
+                        <span class="ml-3 text-gray-800 peer-checked:text-white">Services Provider</span>
+                    </label>
+                </div>
             </div>
-        </div>
-        
 
-
+            <!-- Common Fields for Both Roles -->
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-300 required">Full Name</label>
                 <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
+                       autocomplete="name"
                        class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                 @error('name')
                     <span class="text-red-400 text-sm">{{ $message }}</span>
@@ -101,57 +101,61 @@
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-300 required">Email Address</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required
+                       autocomplete="email"
                        class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                 @error('email')
                     <span class="text-red-400 text-sm">{{ $message }}</span>
                 @enderror
             </div>
-            <!-- Common Fields for Both Roles -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-               
 
-                <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-300 required">Contact No.</label>
-                    <input id="phone" type="text" name="phone" value="{{ old('phone') }}" required
-                           class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                    @error('phone')
-                        <span class="text-red-400 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
+            <div id="customer-fields" class="hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-300 required">Contact No.</label>
+                        <input id="phone" type="text" name="phone" value="{{ old('phone') }}" required
+                               autocomplete="tel"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                        @error('phone')
+                            <span class="text-red-400 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
 
-                <div>
-                    <label for="gender" class="block text-sm font-medium text-gray-300 required">Gender</label>
-                    <select id="gender" name="gender" required
-                            class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                        <option value="" disabled selected>Select a gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
+                    <div>
+                        <label for="gender" class="block text-sm font-medium text-gray-300 required">Gender</label>
+                        <select id="gender" name="gender" required
+                                autocomplete="gender"
+                                class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                            <option value="" disabled selected>Select a gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
 
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-300 required">Password</label>
-                    <input id="password" type="password" name="password" required
-                           class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                    @error('password')
-                        <span class="text-red-400 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-300 required">Password</label>
+                        <input id="password" type="password" name="password" required
+                               autocomplete="new-password"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                        @error('password')
+                            <span class="text-red-400 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
 
-                <div>
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-300 required">Confirm Password</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" required
-                           class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                    <div>
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-300 required">Confirm Password</label>
+                        <input id="password_confirmation" type="password" name="password_confirmation" required
+                               autocomplete="new-password"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                    </div>
                 </div>
             </div>
 
-            <!-- Dynamic Form Fields for Service Providers -->
             <div id="provider-fields" class="hidden space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="service" class="block text-sm font-medium text-gray-300 required">Service Role</label>
-                        <select id="service" name="service" required
-                                class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                        <label for="service" class="block text-sm font-medium text-gray-300">Service Role</label>
+                        <select id="service" name="service" 
+                                class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                             <option value="" disabled selected>Select a service role</option>
                             <option value="appliances">Appliances Services</option>
                             <option value="electrical">Electrical Services</option>
@@ -161,28 +165,28 @@
                     </div>
 
                     <div>
-                        <label for="complete_address" class="block text-sm font-medium text-gray-300 required">Complete Address</label>
-                        <input id="complete_address" type="text" name="complete_address" value="{{ old('complete_address') }}" required
+                        <label for="complete_address" class="block text-sm font-medium text-gray-300">Complete Address</label>
+                        <input id="complete_address" type="text" name="complete_address" value="{{ old('complete_address') }}"
                                class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <label for="primary_id" class="block text-sm font-medium text-gray-300 required">Upload Primary ID</label>
-                        <input id="primary_id" type="file" name="primary_id" accept="image/*" required
+                        <label for="primary_id" class="block text-sm font-medium text-gray-300">Upload Primary ID</label>
+                        <input id="primary_id" type="file" name="primary_id" accept="image/*"
                                class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                     </div>
 
                     <div>
-                        <label for="secondary_id" class="block text-sm font-medium text-gray-300 required">Upload Secondary ID</label>
-                        <input id="secondary_id" type="file" name="secondary_id" accept="image/*" required
+                        <label for="secondary_id" class="block text-sm font-medium text-gray-300">Upload Secondary ID</label>
+                        <input id="secondary_id" type="file" name="secondary_id" accept="image/*"
                                class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                     </div>
 
                     <div>
-                        <label for="certification" class="block text-sm font-medium text-gray-300 required">Upload Certification</label>
-                        <input id="certification" type="file" name="certification" accept="image/*" required
+                        <label for="certification" class="block text-sm font-medium text-gray-300">Upload Certification</label>
+                        <input id="certification" type="file" name="certification" accept="image/*"
                                class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                     </div>
                 </div>
@@ -203,41 +207,29 @@
     </div>
 
     <script>
-        function toggleFormFields(role) {
-            const providerFields = document.getElementById('provider-fields');
-            if (role === 'provider') {
-                providerFields.classList.remove('hidden');
-            } else {
-                providerFields.classList.add('hidden');
-            }
+    function toggleFormFields(role) {
+        const providerFields = document.getElementById('provider-fields');
+        const customerFields = document.getElementById('customer-fields');
+        if (role === 'provider') {
+            providerFields.classList.remove('hidden');
+            customerFields.classList.add('hidden');
+        } else if (role === 'customer') {
+            providerFields.classList.add('hidden');
+            customerFields.classList.remove('hidden');
+        } else {
+            providerFields.classList.add('hidden');
+            customerFields.classList.add('hidden');
         }
+    }
 
-        function validateForm() {
-            const form = document.getElementById('registration-form');
-            const requiredFields = form.querySelectorAll('[required]');
-            let allValid = true;
-
-            requiredFields.forEach(field => {
-                const label = field.previousElementSibling;
-                if (!field.value) {
-                    label.classList.add('invalid');
-                    allValid = false;
-                } else {
-                    label.classList.remove('invalid');
-                }
-            });
-
-            return allValid;
+    document.getElementById('registration-form').addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); // Prevent form submission if validation fails
         }
+    });
 
-        document.getElementById('registration-form').addEventListener('submit', function(event) {
-            if (!validateForm()) {
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-        });
-
-        // Initialize form based on default selection
-        toggleFormFields(document.querySelector('input[name="role"]:checked').value);
-    </script>
+    // Initialize form based on default selection
+    toggleFormFields(document.querySelector('input[name="role"]:checked').value);
+</script>
 </body>
 </html>

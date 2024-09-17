@@ -2,10 +2,10 @@
 
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class RegistrationController extends Controller
 {
@@ -15,28 +15,53 @@ class RegistrationController extends Controller
         return view('auth.register'); // Adjust to your Blade template path
     }
 
-    // Method to handle form submission
     public function register(Request $request)
     {
-        // Validate the request
-        $request->validate([
+        // Debugging: Log the incoming request data
+        Log::info('Incoming registration request:', $request->all());
+
+        // Define default validation rules
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:20',
             'gender' => 'required|string',
             'role' => 'required|string',
-            'service' => 'nullable|string',
-            'complete_address' => 'nullable|string',
-            'primary_id' => 'nullable|file|image|max:2048',
-            'secondary_id' => 'nullable|file|image|max:2048',
-            'certification' => 'nullable|file|image|max:2048',
             'password' => 'required|string|min:8|confirmed',
-        ]);
+        ];
+
+        // Add conditional rules based on the role
+        if ($request->role === 'provider') {
+            $rules['service'] = 'required|string';
+            $rules['complete_address'] = 'required|string';
+            $rules['primary_id'] = 'required|file|image|max:2048';
+            $rules['secondary_id'] = 'required|file|image|max:2048';
+            $rules['certification'] = 'required|file|image|max:2048';
+        } else {
+            $rules['service'] = 'nullable|string';
+            $rules['complete_address'] = 'nullable|string';
+            $rules['primary_id'] = 'nullable|file|image|max:2048';
+            $rules['secondary_id'] = 'nullable|file|image|max:2048';
+            $rules['certification'] = 'nullable|file|image|max:2048';
+        }
+
+        // Validate the request
+        $validatedData = $request->validate($rules);
+
+        // Debugging: Log validation success and processed data
+        Log::info('Validated data:', $validatedData);
 
         // Handle file uploads
         $primaryIdPath = $request->file('primary_id') ? $request->file('primary_id')->store('uploads') : null;
         $secondaryIdPath = $request->file('secondary_id') ? $request->file('secondary_id')->store('uploads') : null;
         $certificationPath = $request->file('certification') ? $request->file('certification')->store('uploads') : null;
+
+        // Debugging: Log file paths
+        Log::info('File paths:', [
+            'primary_id' => $primaryIdPath,
+            'secondary_id' => $secondaryIdPath,
+            'certification' => $certificationPath
+        ]);
 
         // Create user
         User::create([
@@ -45,8 +70,8 @@ class RegistrationController extends Controller
             'phone' => $request->phone,
             'gender' => $request->gender,
             'role' => $request->role,
-            'service' => $request->service,
-            'complete_address' => $request->complete_address,
+            'service' => $request->role === 'provider' ? $request->service : null,
+            'complete_address' => $request->role === 'provider' ? $request->complete_address : null,
             'primary_id' => $primaryIdPath,
             'secondary_id' => $secondaryIdPath,
             'certification' => $certificationPath,
@@ -56,4 +81,5 @@ class RegistrationController extends Controller
         // Redirect or respond
         return redirect()->to('http://127.0.0.1:8000/admin/login')->with('success', 'Registration successful!');
     }
+
 }
