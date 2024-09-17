@@ -38,9 +38,13 @@
             <p class="text-lg font-semibold">Account Details</p>
             <p class="mt-2">Name: {{ $user->name }}</p>
             <p>Email: {{ $user->email }}</p>
-            <p>Phone: {{ $user->phone }}</p>
+            <p>Phone:</p>
             <p>Role: {{ ucfirst($user->role) }}</p>
-            <p>Status: <span class="text-yellow-400">Pending</span></p>
+            <p>Status: 
+                        <span class="{{ $user->status === 'approved' ? 'text-green-400' : 'text-yellow-400' }}">
+                            {{ $user->status }}
+                        </span>
+                    </p>
         </div>
         <p class="text-center text-gray-400">
             Your account is currently under review. 

@@ -60,10 +60,20 @@ class User extends Authenticatable
     //     return $this->belongsToMany(Service::class, 'service_user');
     // }
 
-        public function service()
-        {
-            return $this->hasOne(Service::class);
-        }
+    public function services()
+    {
+        return $this->belongsToMany(Service::class);
+    }
+    
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+    
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 
 
     public function canAccessFilament(): bool
