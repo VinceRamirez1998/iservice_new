@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <style>
         /* Custom Glowing and Shining Effects */
         body {
@@ -64,8 +63,8 @@
                 <label class="block text-xl font-bold text-white mb-4">Register as</label>
                 <div class="flex gap-6">
                     <!-- Customer Radio Button -->
-                    <label for="role_customer" class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
-                        <input id="role_customer" type="radio" name="role" value="customer" checked
+                    <label for="customer" class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
+                        <input id="customer" type="radio" name="role" value="customer" checked
                                class="hidden peer"
                                onclick="toggleFormFields('customer')" required>
                         <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
@@ -75,8 +74,8 @@
                     </label>
         
                     <!-- Services Provider Radio Button -->
-                    <label for="role_provider" class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
-                        <input id="role_provider" type="radio" name="role" value="provider"
+                    <label for="provider" class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
+                        <input id="provider" type="radio" name="role" value="provider"
                                class="hidden peer"
                                onclick="toggleFormFields('provider')" required>
                         <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
@@ -112,7 +111,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="phone" class="block text-sm font-medium text-gray-300 required">Contact No.</label>
-                        <input id="phone" type="text" name="phone" value="{{ old('phone') }}" required
+                        <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" required
                                autocomplete="tel"
                                class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                         @error('phone')
@@ -155,6 +154,7 @@
                     <div>
                         <label for="service" class="block text-sm font-medium text-gray-300">Service Role</label>
                         <select id="service" name="service" 
+                                autocomplete="organization"
                                 class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                             <option value="" disabled selected>Select a service role</option>
                             <option value="appliances">Appliances Services</option>
@@ -167,6 +167,7 @@
                     <div>
                         <label for="complete_address" class="block text-sm font-medium text-gray-300">Complete Address</label>
                         <input id="complete_address" type="text" name="complete_address" value="{{ old('complete_address') }}"
+                               autocomplete="address"
                                class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                     </div>
                 </div>
