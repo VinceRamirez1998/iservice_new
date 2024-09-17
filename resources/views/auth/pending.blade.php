@@ -38,7 +38,7 @@
             <p class="text-lg font-semibold">Account Details</p>
             <p class="mt-2">Name: {{ $user->name }}</p>
             <p>Email: {{ $user->email }}</p>
-            <p>Phone:</p>
+            <p>Phone: {{ $user->phone }}</p></p>
             <p>Role: {{ ucfirst($user->role) }}</p>
             <p>Status: 
                         <span class="{{ $user->status === 'approved' ? 'text-green-400' : 'text-yellow-400' }}">
