@@ -2,10 +2,11 @@
 
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class RegistrationController extends Controller
 {
@@ -13,6 +14,19 @@ class RegistrationController extends Controller
     public function showRegistrationForm()
     {
         return view('auth.register'); // Adjust to your Blade template path
+    }
+
+    public function showPendingPage()
+    {
+        $user = Auth::user(); // Retrieve the authenticated user
+
+        // Ensure the user is authenticated and has a pending status
+        if ($user && $user->status === 'pending') {
+            return view('auth.pending', ['user' => $user]);
+        }
+
+        // Redirect to home or show an error if not pending
+        return redirect('/')->with('error', 'Account status not pending or user not authenticated.');
     }
 
     public function register(Request $request)
@@ -64,7 +78,7 @@ class RegistrationController extends Controller
         ]);
 
         // Create user
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -79,7 +93,10 @@ class RegistrationController extends Controller
         ]);
 
         // Redirect or respond
-        return redirect()->to('http://127.0.0.1:8000/admin/login')->with('success', 'Registration successful!');
+        // return redirect()->to('http://127.0.0.1:8000/pending')->with('success', 'Registration successful!');
+        Auth::login($user);
+
+        return redirect()->route('account.pending');
     }
 
 }

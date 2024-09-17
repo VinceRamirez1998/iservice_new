@@ -15,6 +15,9 @@ use App\User\Model;
 |
 */
 Route::get('/register', [App\Http\Controllers\RegistrationController::class, 'showRegistrationForm'])->name('register.form');
-
 Route::post('/register', [App\Http\Controllers\RegistrationController::class, 'register'])->name('register.post');
 
+
+
+// Route for showing the pending account page
+Route::get('/account-pending', [RegistrationController::class, 'showPendingPage'])->name('account.pending');
