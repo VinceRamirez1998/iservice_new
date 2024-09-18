@@ -200,7 +200,7 @@
 
             <!-- Redirect to Login -->
             <div class="text-center">
-                <a href="{{ url('/admin/login') }}" class="text-blue-400 hover:text-blue-300 text-sm">
+                <a href="{{ url('/admin/login') }}" class="text-gray-400 hover:text-orange-300 text-sm">
                     Already have an account? Login
                 </a>
             </div>
