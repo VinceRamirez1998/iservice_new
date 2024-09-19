@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BillingResource\Pages;
-use App\Filament\Resources\BillingResource\RelationManagers;
-use App\Models\Billing;
+use App\Filament\Resources\SubscriptionResource\Pages;
+use App\Filament\Resources\SubscriptionResource\RelationManagers;
+use App\Models\Subscription;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,11 +13,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BillingResource extends Resource
+class SubscriptionResource extends Resource
 {
-    protected static ?string $model = Billing::class;
+    protected static ?string $model = Subscription::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-credit-card';
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Invoice';
 
     public static function form(Form $form): Form
@@ -103,9 +103,9 @@ class BillingResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBillings::route('/'),
-            'create' => Pages\CreateBilling::route('/create'),
-            'edit' => Pages\EditBilling::route('/{record}/edit'),
+            'index' => Pages\ListSubscriptions::route('/'),
+            'create' => Pages\CreateSubscription::route('/create'),
+            'edit' => Pages\EditSubscription::route('/{record}/edit'),
         ];
     }
 }

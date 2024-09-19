@@ -14,6 +14,12 @@ use App\User\Model;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/', function () {
+    return view('auth.register'); // You can change 'welcome' to your desired view
+
+});
+
 Route::get('/register', [App\Http\Controllers\RegistrationController::class, 'showRegistrationForm'])->name('register.form');
 
 Route::post('/register', [App\Http\Controllers\RegistrationController::class, 'register'])->name('register.post');

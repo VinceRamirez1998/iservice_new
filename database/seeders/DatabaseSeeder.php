@@ -67,6 +67,11 @@ class DatabaseSeeder extends Seeder
             'Update Billing',
             'Delete Billing',
             'CRUD Billing',
+            'Create Subscription',
+            'View Subscription',
+            'Update Subscription',
+            'Delete Subscription',
+            'CRUD Subscription',
         ];
 
         // Create permissions
