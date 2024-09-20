@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Custom Glowing and Shining Effects */
         body {
@@ -56,7 +57,7 @@
     <!-- Include Header -->
     @include('partials.header')
     
-    <div style="background-color:rgb(24 24 27);" class="w-full max-w-4xl p-10 rounded-lg shadow-lg glow">
+    <div style="background-color:rgb(24 24 27);" class="w-full max-w-4xl p-10 rounded-lg shadow-lg glow ">
         <h2 id="accountHeading" class="text-3xl font-extrabold mb-8 text-center text-white shine">Create Your Account</h2>
         
         <form id="registration-form" method="post" action="{{ route('register.post') }}" enctype="multipart/form-data" class="space-y-6">
@@ -72,7 +73,7 @@
                                class="hidden peer"
                                onclick="toggleFormFields('customer')" required>
                         <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
-                            <i class="fas fa-user text-gray-800 peer-checked:text-white"></i>
+                            <i class=" text-gray-800 peer-checked:text-white"></i>
                         </div>
                         <span class="ml-3 text-gray-800 peer-checked:text-white">Customer</span>
                     </label>
@@ -83,7 +84,7 @@
                                class="hidden peer"
                                onclick="toggleFormFields('provider')" required>
                         <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
-                            <i class="fas fa-cogs text-gray-800 peer-checked:text-white"></i>
+                            <i class=" text-gray-800 peer-checked:text-white"></i>
                         </div>
                         <span class="ml-3 text-gray-800 peer-checked:text-white">Services Provider</span>
                     </label>
@@ -215,9 +216,22 @@
                 <a href="{{ url('/admin/login') }}" class="text-gray-400 hover:text-orange-300 text-sm">
                     Already have an account? Login
                 </a>
+                <div class="flex justify-center space-x-4 mt-2">
+                    <a href="https://www.facebook.com/profile.php?id=61565684236798" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://x.com/iServiceHOMEFIX" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+                
             </div>
         </form>
     </div>
+
 
     <script>
         function toggleFormFields(role) {

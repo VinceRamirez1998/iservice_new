@@ -7,7 +7,7 @@
         <a href="https://www.instagram.com" target="_blank" class="text-gray-400 hover:text-white">
             <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://www.twitter.com" target="_blank" class="text-gray-400 hover:text-white">
+        <a href="https://x.com/iServiceHOMEFIX" target="_blank" class="text-gray-400 hover:text-white">
             <i class="fab fa-twitter"></i>
         </a>
     </div>
