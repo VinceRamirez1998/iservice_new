@@ -55,8 +55,10 @@
 <body class="flex flex-col items-center">
     <!-- Include Header -->
     @include('partials.header')
+    
     <div style="background-color:rgb(24 24 27);" class="w-full max-w-4xl p-10 rounded-lg shadow-lg glow">
-        <h2 class="text-3xl font-extrabold mb-8 text-center text-white shine">Create Your Account</h2>
+        <h2 id="accountHeading" class="text-3xl font-extrabold mb-8 text-center text-white shine">Create Your Account</h2>
+        
         <form id="registration-form" method="post" action="{{ route('register.post') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
@@ -109,48 +111,47 @@
                 @enderror
             </div>
 
-            <div id="customer-fields" class="hidden space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-300 required">Contact No.</label>
-                        <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" required
-                               autocomplete="tel"
-                               class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                        @error('phone')
-                            <span class="text-red-400 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-300 required">Contact No.</label>
+                    <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" required
+                           autocomplete="tel"
+                           class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                    @error('phone')
+                        <span class="text-red-400 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
 
-                    <div>
-                        <label for="gender" class="block text-sm font-medium text-gray-300 required">Gender</label>
-                        <select id="gender" name="gender" required
-                                autocomplete="gender"
-                                class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                            <option value="" disabled selected>Select a gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
+                <div>
+                    <label for="gender" class="block text-sm font-medium text-gray-300 required">Gender</label>
+                    <select id="gender" name="gender" required
+                            autocomplete="gender"
+                            class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                        <option value="" disabled selected>Select a gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
 
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-gray-300 required">Password</label>
-                        <input id="password" type="password" name="password" required
-                               autocomplete="new-password"
-                               class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                        @error('password')
-                            <span class="text-red-400 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-300 required">Password</label>
+                    <input id="password" type="password" name="password" required
+                           autocomplete="new-password"
+                           class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                    @error('password')
+                        <span class="text-red-400 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
 
-                    <div>
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-300 required">Confirm Password</label>
-                        <input id="password_confirmation" type="password" name="password_confirmation" required
-                               autocomplete="new-password"
-                               class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                    </div>
+                <div>
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-300 required">Confirm Password</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation" required
+                           autocomplete="new-password"
+                           class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                 </div>
             </div>
 
+            <!-- Provider-Specific Fields -->
             <div id="provider-fields" class="hidden space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -195,6 +196,15 @@
                 </div>
             </div>
 
+            <!-- Customer-Specific Fields -->
+            <div id="customer-fields" class="hidden space-y-6">
+                <div class="hidden">
+                    <label for="customer_specific_field" class="block text-sm font-medium text-gray-300">Customer Specific Field</label>
+                    <input id="customer_specific_field" type="text" name="customer_specific_field" value="{{ old('customer_specific_field') }}"
+                           class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                </div>
+            </div>
+
             <!-- Register Button -->
             <div class="flex items-center justify-center">
                 <button type="submit" style="background-color: rgb(245, 158, 11);" class="w-full text-white px-4 py-3 rounded-md shadow-md hover:bg-blue-700 transition duration-300 glow">Register</button>
@@ -210,29 +220,37 @@
     </div>
 
     <script>
-    function toggleFormFields(role) {
-        const providerFields = document.getElementById('provider-fields');
-        const customerFields = document.getElementById('customer-fields');
-        if (role === 'provider') {
-            providerFields.classList.remove('hidden');
-            customerFields.classList.add('hidden');
-        } else if (role === 'customer') {
-            providerFields.classList.add('hidden');
-            customerFields.classList.remove('hidden');
-        } else {
-            providerFields.classList.add('hidden');
-            customerFields.classList.add('hidden');
+        function toggleFormFields(role) {
+            const providerFields = document.getElementById('provider-fields');
+            const customerFields = document.getElementById('customer-fields');
+            const accountHeading = document.getElementById('accountHeading');
+            
+            if (role === 'provider') {
+                providerFields.classList.remove('hidden');
+                customerFields.classList.add('hidden');
+                accountHeading.textContent = 'Create Services Provider Account';
+            } else if (role === 'customer') {
+                providerFields.classList.add('hidden');
+                customerFields.classList.remove('hidden');
+                accountHeading.textContent = 'Create Customer Account';
+            } else {
+                providerFields.classList.add('hidden');
+                customerFields.classList.add('hidden');
+                accountHeading.textContent = 'Create Your Account'; 
+            }
         }
-    }
 
-    document.getElementById('registration-form').addEventListener('submit', function(event) {
-        if (!validateForm()) {
-            event.preventDefault(); // Prevent form submission if validation fails
-        }
-    });
+        // Form submission validation
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            if (!validateForm()) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
 
-    // Initialize form based on default selection
-    toggleFormFields(document.querySelector('input[name="role"]:checked').value);
-</script>
+        // Initialize form based on default selection
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleFormFields(document.querySelector('input[name="role"]:checked').value);
+        });
+    </script>
 </body>
 </html>
