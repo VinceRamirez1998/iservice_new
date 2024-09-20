@@ -16,12 +16,17 @@ use App\User\Model;
 */
 
 Route::get('/', function () {
-    return view('auth.register'); // You can change 'welcome' to your desired view
+    return view('auth.register'); 
 
 });
 
+// Register and Pending Page
 Route::get('/register', [App\Http\Controllers\RegistrationController::class, 'showRegistrationForm'])->name('register.form');
-
 Route::post('/register', [App\Http\Controllers\RegistrationController::class, 'register'])->name('register.post');
-
 Route::get('/auth/pending', [RegistrationController::class, 'pending'])->name('auth.pending');
+
+
+// HEADER
+Route::view('/contact', 'contact')->name('contact');
+Route::view('/faq', 'faq')->name('faq');
+Route::view('/about', 'about')->name('about');

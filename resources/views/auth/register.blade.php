@@ -52,7 +52,9 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center h-screen">
+<body class="flex flex-col items-center">
+    <!-- Include Header -->
+    @include('partials.header')
     <div style="background-color:rgb(24 24 27);" class="w-full max-w-4xl p-10 rounded-lg shadow-lg glow">
         <h2 class="text-3xl font-extrabold mb-8 text-center text-white shine">Create Your Account</h2>
         <form id="registration-form" method="post" action="{{ route('register.post') }}" enctype="multipart/form-data" class="space-y-6">
