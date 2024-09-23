@@ -23,7 +23,8 @@ class Service extends Model
         'secondary_id',
         'service',
         'certification',
-        'gender'
+        'gender',
+        'image'
     ];
 
     public function users()
