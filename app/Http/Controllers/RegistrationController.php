@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Role; // Add this line
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class RegistrationController extends Controller
     public function showRegistrationForm()
     {
         return view('auth.register'); // Adjust to your Blade template path
-    }
+    }   
 
     public function pending()
     {
@@ -54,22 +55,30 @@ class RegistrationController extends Controller
             $rules['certification'] = 'required|file|image|max:2048';
         } else {
             $rules['service'] = 'nullable|string';
-            $rules['complete_address'] = 'nullable|string';
+            $rules['complete_address'] = 'nullable|string'; 
             $rules['primary_id'] = 'nullable|file|image|max:2048';
             $rules['secondary_id'] = 'nullable|file|image|max:2048';
             $rules['certification'] = 'nullable|file|image|max:2048';
         }
 
+
         // Validate the request
         $validatedData = $request->validate($rules);
 
+        // Retrieve the role ID from the roles table
+        $role = Role::where('id', $request->role)->first();
+        if (!$role) {
+            return redirect()->back()->withErrors(['role' => 'Invalid role selected.']);
+        }
+
         // Debugging: Log validation success and processed data
         Log::info('Validated data:', $validatedData);
-
-        // Handle file uploads
-        $primaryIdPath = $request->file('primary_id') ? $request->file('primary_id')->store('uploads') : null;
-        $secondaryIdPath = $request->file('secondary_id') ? $request->file('secondary_id')->store('uploads') : null;
-        $certificationPath = $request->file('certification') ? $request->file('certification')->store('uploads') : null;
+                                            
+        // Handle file uploads             
+        $primaryIdPath = $request->file('primary_id') ? $request->file('primary_id')->store('', 'public') : null;
+        $secondaryIdPath = $request->file('secondary_id') ? $request->file('secondary_id')->store('', 'public') : null;
+        $certificationPath = $request->file('certification') ? $request->file('certification')->store('', 'public') : null;
+        
 
         // Debugging: Log file paths
         Log::info('File paths:', [
@@ -85,13 +94,21 @@ class RegistrationController extends Controller
             'phone' => $request->phone,
             'gender' => $request->gender,
             'role' => $request->role,
-            'service' => $request->role === 'provider' ? $request->service : null,
-            'complete_address' => $request->role === 'provider' ? $request->complete_address : null,
+            'service' => $request->role === '3' ? '1' : ($request->input('service') ?? 'Not Applicable'),
+            'complete_address' => $request->role === '2' ? $request->complete_address : ($request->role === '3' ? $request->complete_address : null),
             'primary_id' => $primaryIdPath,
             'secondary_id' => $secondaryIdPath,
             'certification' => $certificationPath,
             'password' => Hash::make($request->password),
         ]);
+
+        // Attach selected services if the user is a provider
+        if ($request->role === '2' && $request->has('service')) {
+            Log::info('Services to attach:', ['services' => $request->input('service')]);
+            $user->services()->attach($request->input('service'));
+        }
+        
+        
 
         // Redirect or respond
         // return redirect()->to('http://127.0.0.1:8000/pending')->with('success', 'Registration successful!');

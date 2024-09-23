@@ -69,7 +69,7 @@
                 <div class="flex gap-6">
                     <!-- Customer Radio Button -->
                     <label for="customer" class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
-                        <input id="customer" type="radio" name="role" value="customer" checked
+                        <input id="customer" type="radio" name="role" value="3" checked
                                class="hidden peer"
                                onclick="toggleFormFields('customer')" required>
                         <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
@@ -80,7 +80,7 @@
         
                     <!-- Services Provider Radio Button -->
                     <label for="provider" class="flex items-center cursor-pointer p-4 border rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl">
-                        <input id="provider" type="radio" name="role" value="provider"
+                        <input id="provider" type="radio" name="role" value="2"
                                class="hidden peer"
                                onclick="toggleFormFields('provider')" required>
                         <div class="w-6 h-6 flex items-center justify-center border rounded-full bg-black peer-checked:bg-orange-500 peer-checked:border-orange-300">
@@ -111,9 +111,7 @@
                     <span class="text-red-400 text-sm">{{ $message }}</span>
                 @enderror
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+            <div>
                     <label for="phone" class="block text-sm font-medium text-gray-300 required">Contact No.</label>
                     <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" required
                            autocomplete="tel"
@@ -123,16 +121,12 @@
                     @enderror
                 </div>
 
-                <div>
-                    <label for="gender" class="block text-sm font-medium text-gray-300 required">Gender</label>
-                    <select id="gender" name="gender" required
-                            autocomplete="gender"
-                            class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                        <option value="" disabled selected>Select a gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
+          
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+               
+
+              
 
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-300 required">Password</label>
@@ -150,30 +144,43 @@
                            autocomplete="new-password"
                            class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                 </div>
+                <div>
+                    <label for="gender" class="block text-sm font-medium text-gray-300 required">Gender</label>
+                    <select id="gender" name="gender" required
+                            autocomplete="gender"
+                            class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                        <option value="" disabled selected>Select a gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div>
+                        <label for="service" class="block text-sm font-medium text-gray-300">Service Role</label>
+                        <select id="service" name="service" 
+                                autocomplete="organization"
+                                class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                            <option value="" disabled>Select a service role</option>
+                            <option value="1" selected>Not Applicable</option>
+                            <option value="2">Appliances Services</option>
+                            <option value="3">Electrical Services</option>
+                            <option value="4">Plumbing Services</option>
+                            <option value="5">Mechanic Services</option>
+                        </select>
+                    </div>
+                
             </div>
 
             <!-- Provider-Specific Fields -->
             <div id="provider-fields" class="hidden space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="service" class="block text-sm font-medium text-gray-300">Service Role</label>
-                        <select id="service" name="service" 
-                                autocomplete="organization"
-                                class="mt-1 block w-full px-2 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                            <option value="" disabled selected>Select a service role</option>
-                            <option value="appliances">Appliances Services</option>
-                            <option value="electrical">Electrical Services</option>
-                            <option value="plumbing">Plumbing Services</option>
-                            <option value="mechanic">Mechanic Services</option>
-                        </select>
-                    </div>
+                    
 
-                    <div>
+                    <!-- <div>
                         <label for="complete_address" class="block text-sm font-medium text-gray-300">Complete Address</label>
                         <input id="complete_address" type="text" name="complete_address" value="{{ old('complete_address') }}"
                                autocomplete="address"
                                class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -198,6 +205,12 @@
             </div>
 
             <!-- Customer-Specific Fields -->
+               <div>
+                        <label for="complete_address" class="block text-sm font-medium text-gray-300">Complete Address</label>
+                        <input id="complete_address" type="text" name="complete_address" value="{{ old('complete_address') }}"
+                               autocomplete="address"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
+                    </div>    
             <div id="customer-fields" class="hidden space-y-6">
                 <div class="hidden">
                     <label for="customer_specific_field" class="block text-sm font-medium text-gray-300">Customer Specific Field</label>
@@ -238,6 +251,7 @@
             const providerFields = document.getElementById('provider-fields');
             const customerFields = document.getElementById('customer-fields');
             const accountHeading = document.getElementById('accountHeading');
+            const completeAddressField = document.getElementById('complete_address');
             
             if (role === 'provider') {
                 providerFields.classList.remove('hidden');

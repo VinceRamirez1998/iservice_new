@@ -45,7 +45,46 @@
             <p class="mt-2">Name: {{ $user->name }}</p>
             <p>Email: {{ $user->email }}</p>
             <p>Phone: {{ $user->phone }}</p>
-            <p>Role: {{ ucfirst($user->role) }}</p>
+            <p>Role: 
+    @switch($user->role)
+        @case(1)
+            {{ 'Admin' }}
+            @break
+        @case(2)
+            {{ 'Provider' }}
+            @break
+        @case(3)
+            {{ 'Customer' }}
+            @break
+        @default
+            {{ 'Unknown Service' }}
+    @endswitch
+</p>
+<p>Service: 
+    @switch($user->service)
+        @case(1)
+            {{ 'Not Applicable' }}
+            @break
+        @case(2)
+            {{ 'Appliances Services' }}
+            @break
+        @case(3)
+            {{ 'Electrical Services' }}
+            @break
+        @case(4)
+            {{ 'Plumbing Services' }} 
+            @break
+        @case(5)
+            {{ 'Mechanic Services' }} 
+            @break
+        @default
+            {{ 'Not Applicable' }}
+    @endswitch
+</p>
+
+
+
+
             <p>Status: 
                 <span class="{{ $user->status === 'approved' ? 'text-green-400' : 'text-yellow-400' }}">
                     {{ $user->status }}

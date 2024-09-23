@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
+use Log;
 
 class UserResource extends Resource
 {
@@ -37,14 +38,13 @@ class UserResource extends Resource
                     ->columnSpan(2),
                     Select::make('service')
                     // ->multiple()
-                    ->relationship('services', 'name')->preload()
-                    ->placeholder('N/A'),
+                    ->relationship('services', 'name')->preload(),
                     Forms\Components\TextInput::make('email')->unique(ignoreRecord: true)->email()->required()->maxLength(255),
                     Select::make('gender')
                     ->label('Gender')
                     ->options([
-                        'Male' => 'Male',
-                        'Female' => 'Female',
+                        'male' => 'Male',
+                        'female' => 'Female',
                     ]),
                     TextInput::make('phone')
                     ->label('Contact No.')
@@ -77,10 +77,10 @@ class UserResource extends Resource
                     ->timezone('Asia/Manila')// Set the timezone
                     ->disabled(),
                     Forms\Components\TextInput::make('complete_address')
-                    ->required()
+                    // ->required()
                     ->columnSpan(2),
                         Select::make('role')
-                            ->required()
+                            // ->required()
                             ->relationship('roles', 'name')->preload(),
                         Select::make('permission')
                             ->multiple()
@@ -90,15 +90,15 @@ class UserResource extends Resource
 
                    
                     Forms\Components\FileUpload::make('primary_id')
-                        ->required()
+                        // ->required()
                         ->downloadable()
                         ->label('Primary ID'),
                     Forms\Components\FileUpload::make('secondary_id')
-                        ->required()
+                        // ->required()
                         ->downloadable()
                         ->label('Secondary ID'),
                     Forms\Components\FileUpload::make('certification')
-                        ->required()
+                        // ->required()
                         ->downloadable()
                         ->label('Certification'),
             ]),
@@ -108,6 +108,8 @@ class UserResource extends Resource
     
         public static function table(Table $table): Table
         {
+
+           
             return $table
                 ->columns([
                     Tables\Columns\TextColumn::make('name')
@@ -135,15 +137,22 @@ class UserResource extends Resource
                     ->label('Complete Address')
                     ->searchable()
                     ->sortable(),
-                        Tables\Columns\TextColumn::make('services') // Use the relationship name
+                        Tables\Columns\TextColumn::make('service') // Use the relationship name
                         ->formatStateUsing(function ($record) {
-                            return $record->services->pluck('name')->join(', '); // Join related service names
+                            return ($record->services->isEmpty() || $record->services == null) ? 'N/A' : $record->services->pluck('name')->join(', ');
                         })
+                        // ->default('N/A')
                         ->searchable()
                         ->sortable(),
                         Tables\Columns\TextColumn::make('role')
+                        // ->toggleable(isToggledHiddenByDefault: true)
                         ->formatStateUsing(function ($record) {
-                            return $record->roles->pluck('name')->join(', '); // Join related service names
+                            return match ($record->role) {
+                                '1' => 'Admin',
+                                '2' => 'Provider',
+                                '3' => 'Customer',
+                                default => 'Unknown', // Fallback if role does not match
+                            };
                         })
                         ->searchable()
                         ->sortable(),
@@ -152,12 +161,19 @@ class UserResource extends Resource
                         ->toggleable(isToggledHiddenByDefault: true),
                         Tables\Columns\ImageColumn::make('primary_id')
                         ->toggleable(isToggledHiddenByDefault: true)
-                        ->label('Primary ID'),
+                        ->url(fn ($record) => Storage::url($record->primary_id))
+                        ->label('Primary ID')
+                        ->disk('public'),
                         Tables\Columns\ImageColumn::make('secondary_id')
                         ->toggleable(isToggledHiddenByDefault: true)
-                        ->label('Secondary ID'),
+                        ->url(fn ($record) => Storage::url($record->secondary_id))
+                        ->label('Secondary ID')
+                        ->disk('public'),
                         Tables\Columns\ImageColumn::make('certification')
-                        ->toggleable(isToggledHiddenByDefault: true),
+                        ->toggleable(isToggledHiddenByDefault: true)
+                        ->url(fn ($record) => Storage::url($record->certification))
+                        ->label('Certification')
+                        ->disk('public'),
                         Tables\Columns\TextColumn::make('created_at')
                         ->dateTime('d-M-Y g:i A') // Format as 15-Sep-2024 5:04 PM
                         ->timezone('Asia/Manila') // Set the timezone
@@ -193,4 +209,10 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('name','!=', 'admin');
+    }
+
 }

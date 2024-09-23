@@ -44,6 +44,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
     /**
      * The attributes that should be cast.
      *
@@ -67,8 +68,9 @@ class User extends Authenticatable
     
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'role_user');
     }
+    
     
     public function permissions()
     {
@@ -80,5 +82,8 @@ class User extends Authenticatable
     {
         return $this->hasRole('admin' || 'Admin');
     }
+
+   
+
 
 }
