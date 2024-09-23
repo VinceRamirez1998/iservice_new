@@ -57,8 +57,19 @@
     <!-- Include Header -->
     @include('partials.header')
     
-    <div style="background-color:rgb(24 24 27);" class="w-full max-w-4xl p-10 rounded-lg shadow-lg glow ">
-        <h2 id="accountHeading" class="text-3xl font-extrabold mb-8 text-center text-white shine">Create Your Account</h2>
+    <div style="background-color:rgb(24 24 27);" class="w-full max-w-4xl p-10 rounded-lg shadow-lg glow flex flex-col">
+    <div class="flex justify-between items-center mb-4">
+        <h2 id="accountHeading" class="text-3xl font-extrabold text-center text-white shine">Create Your Account</h2>
+        <div class="relative">
+            <label for="profile_picture" class="cursor-pointer">
+                <div class="w-36 h-36 border-2 border-white glow rounded-lg box-full bg-gray-700 flex items-center justify-center text-gray-500 text-lg">
+                Upload Image
+                </div>
+                <input id="profile_picture" type="file" name="profile_picture" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" />
+            </label>
+        </div>
+    </div>
+
         
         <form id="registration-form" method="post" action="{{ route('register.post') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
@@ -218,6 +229,7 @@
                            class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-md bg-gray-700 text-white shadow-sm glow focus:outline-none focus:ring-2 focus:ring-white focus:border-white">
                 </div>
             </div>
+
 
             <!-- Register Button -->
             <div class="flex items-center justify-center">
