@@ -41,6 +41,13 @@
         </div>
         <h2 class="text-3xl font-extrabold mb-8 text-center text-white shine mt-4">Account Pending</h2>
         <div class="text-center text-white mb-6">
+            <div class="flex justify-center mb-6">
+                    @if($user->image)
+                    <img src="{{ asset('storage/' . $user->image) }}" alt="Uploaded Image" class="w-36 h-36 border-2 border-white glow rounded-lg object-cover" />
+                @else
+                    <p>No image uploaded.</p>
+                @endif
+                </div>
             <p class="text-lg font-semibold">Account Details</p>
             <p class="mt-2">Name: {{ $user->name }}</p>
             <p>Email: {{ $user->email }}</p>

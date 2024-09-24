@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Log;
 use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
@@ -13,13 +14,13 @@ use Filament\Resources\Pages\Page;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
-use Log;
 
 class UserResource extends Resource
 {
@@ -33,6 +34,9 @@ class UserResource extends Resource
         
             Forms\Components\Card::make()->schema([
                 Forms\Components\Grid::make(columns: 2)->schema([
+                    Forms\Components\FileUpload::make('image')
+                    ->downloadable()
+                    ->label('Image'),
                     Forms\Components\TextInput::make('name')->unique(ignoreRecord: true)->required()->maxLength(255)
                     ->label('Full Name')
                     ->columnSpan(2),
@@ -112,6 +116,11 @@ class UserResource extends Resource
            
             return $table
                 ->columns([
+                  
+                    Tables\Columns\ImageColumn::make('image')
+                        ->url(fn ($record) => Storage::url($record->image))
+                        ->label('Image')
+                        ->disk('public'),
                     Tables\Columns\TextColumn::make('name')
                         ->searchable()
                         ->sortable(),

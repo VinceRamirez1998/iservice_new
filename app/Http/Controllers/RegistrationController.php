@@ -53,12 +53,14 @@ class RegistrationController extends Controller
             $rules['primary_id'] = 'required|file|image|max:2048';
             $rules['secondary_id'] = 'required|file|image|max:2048';
             $rules['certification'] = 'required|file|image|max:2048';
+            $rules['image'] = 'nullable|file|image|max:2048';
         } else {
             $rules['service'] = 'nullable|string';
             $rules['complete_address'] = 'nullable|string'; 
             $rules['primary_id'] = 'nullable|file|image|max:2048';
             $rules['secondary_id'] = 'nullable|file|image|max:2048';
             $rules['certification'] = 'nullable|file|image|max:2048';
+            $rules['image'] = 'nullable|file|image|max:2048';
         }
 
 
@@ -78,18 +80,21 @@ class RegistrationController extends Controller
         $primaryIdPath = $request->file('primary_id') ? $request->file('primary_id')->store('', 'public') : null;
         $secondaryIdPath = $request->file('secondary_id') ? $request->file('secondary_id')->store('', 'public') : null;
         $certificationPath = $request->file('certification') ? $request->file('certification')->store('', 'public') : null;
+        $imagePath = $request->file('image') ? $request->file('image')->store('', 'public') : null;
         
 
         // Debugging: Log file paths
         Log::info('File paths:', [
             'primary_id' => $primaryIdPath,
             'secondary_id' => $secondaryIdPath,
-            'certification' => $certificationPath
+            'certification' => $certificationPath,
+            'image' => $imagePath
         ]);
 
         // Create user
         $user = User::create([
             'name' => $request->name,
+            'image' => $imagePath,
             'email' => $request->email,
             'phone' => $request->phone,
             'gender' => $request->gender,

@@ -60,19 +60,24 @@
     <div style="background-color:rgb(24 24 27);" class="w-full max-w-4xl p-10 rounded-lg shadow-lg glow flex flex-col">
     <div class="flex justify-between items-center mb-4">
         <h2 id="accountHeading" class="text-3xl font-extrabold text-center text-white shine">Create Your Account</h2>
-        <div class="relative">
-            <label for="profile_picture" class="cursor-pointer">
-                <div class="w-36 h-36 border-2 border-white glow rounded-lg box-full bg-gray-700 flex items-center justify-center text-gray-500 text-lg">
-                Upload Image
-                </div>
-                <input id="profile_picture" type="file" name="profile_picture" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" />
-            </label>
-        </div>
+      
     </div>
 
         
         <form id="registration-form" method="post" action="{{ route('register.post') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
+            <div class="flex justify-end">
+            <div class="relative">
+                <label for="image" class="cursor-pointer">
+                    <div class="w-36 h-36 border-2 border-white glow rounded-lg bg-gray-700 flex items-center justify-center">
+                        <span id="uploadText" class="text-gray-500 text-lg">Upload Image</span>
+                    </div>
+                    <input id="image" type="file" name="image" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="previewImage(event)" />
+                </label>
+                <img id="imagePreview" class="absolute inset-0 w-36 h-36 border-2 border-white glow rounded-lg object-cover hidden" />
+            </div>
+        </div>
+
 
             <!-- Role Selection -->
             <div class="mb-6">
@@ -291,6 +296,25 @@
         document.addEventListener('DOMContentLoaded', function() {
             toggleFormFields(document.querySelector('input[name="role"]:checked').value);
         });
+
+        function previewImage(event) {
+    const imagePreview = document.getElementById('imagePreview');
+    const uploadText = document.getElementById('uploadText');
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result; // Set the image source to the uploaded file
+            imagePreview.classList.remove('hidden'); // Show the image
+            uploadText.classList.add('hidden'); // Hide only the "Upload Image" text
+        }
+        reader.readAsDataURL(file); // Read the file as a data URL
+    } else {
+        imagePreview.classList.add('hidden'); // Hide the image if no file is selected
+        uploadText.classList.remove('hidden'); // Show the "Upload Image" text again if needed
+    }
+}
     </script>
 </body>
 </html>
