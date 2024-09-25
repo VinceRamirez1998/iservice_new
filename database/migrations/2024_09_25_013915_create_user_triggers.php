@@ -85,8 +85,8 @@ class CreateUserTriggers extends Migration
                             service,
                             certification,
                             gender,
-                            subscription_plan 
-                            subscription_duration
+                            subscription_plan,
+                            subscription_duration,
                             image,
                             user_id
                         ) VALUES (
