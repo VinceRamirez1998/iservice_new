@@ -18,6 +18,8 @@ class Subscription extends Model
         'created_at', 
         'reference_no', 
         'bank',
+        'subscription_plan',
+        'subscription_duration',
     ];
 
 }

@@ -32,7 +32,9 @@ class User extends Authenticatable
         'secondary_id',
         'service',
         'certification',
-        'gender'
+        'gender',
+        'subscription_plan',
+        'subscription_duration',
     ];
 
     /**

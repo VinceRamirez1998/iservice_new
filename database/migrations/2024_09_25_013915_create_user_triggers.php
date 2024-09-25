@@ -28,6 +28,8 @@ class CreateUserTriggers extends Migration
                         service,
                         certification,
                         gender,
+                        subscription_plan,
+                        subscription_duration,
                         image,
                         user_id
                     ) VALUES (
@@ -41,6 +43,8 @@ class CreateUserTriggers extends Migration
                         NEW.service,
                         NEW.certification,
                         NEW.gender,
+                        NEW.subscription_plan,
+                        NEW.subscription_duration,
                         NEW.image,
                         NEW.id
                     );
@@ -64,6 +68,8 @@ class CreateUserTriggers extends Migration
                         service = NEW.service,
                         certification = NEW.certification,
                         gender = NEW.gender,
+                        subscription_plan = NEW.subscription_plan,
+                        subscription_duration = NEW.subscription_duration,
                         image = NEW.image
                     WHERE user_id = NEW.id;
 
@@ -79,6 +85,8 @@ class CreateUserTriggers extends Migration
                             service,
                             certification,
                             gender,
+                            subscription_plan 
+                            subscription_duration
                             image,
                             user_id
                         ) VALUES (
@@ -92,6 +100,8 @@ class CreateUserTriggers extends Migration
                             NEW.service,
                             NEW.certification,
                             NEW.gender,
+                            NEW.subscription_plan,
+                            NEW.subscription_duration,
                             NEW.image,
                             NEW.id
                         );

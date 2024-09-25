@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ServiceProviderResource\Pages;
-use App\Filament\Resources\ServiceProviderResource\RelationManagers;
-use App\Models\ServiceProvider;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\ServiceProvider;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ServiceProviderResource\Pages;
+use App\Filament\Resources\ServiceProviderResource\RelationManagers;
 
 class ServiceProviderResource extends Resource
 {
@@ -78,6 +79,20 @@ class ServiceProviderResource extends Resource
                    ->downloadable()
                    ->label('Certification'),
                 ]),
+                Select::make('subscription_plan')
+                ->label('Subscription Plan')
+                ->options([
+                    '1month' => '1 Months Plan',
+                    '3months' => '3 Months Plan',
+                    '6months' => '6 Months Plan',
+                    '1year' => '1 Year Plan',
+                    '2year' => '2 Years Plan',
+                ]),
+                Forms\Components\TextInput::make('subscription_duration')
+                ->label('Subscription Duration')
+                    ->required()
+                    ->maxLength(255)
+                    ->disabled(),
 
             ]);
     }

@@ -64,8 +64,9 @@ class UserResource extends Resource
                     ->label('Status')
                     ->options([
                         'approved' => 'Approved',
-                        'reject' => 'Reject',
                         'pending' => 'Pending',
+                        'active' => 'Active',
+                        'deactivated' => 'Deactivated',
                     ])
                     ->placeholder('Pending'),
                     Forms\Components\DateTimePicker::make('created_at')
@@ -105,6 +106,20 @@ class UserResource extends Resource
                         // ->required()
                         ->downloadable()
                         ->label('Certification'),
+                        Select::make('subscription_plan')
+                        ->label('Subscription Plan')
+                        ->options([
+                            '1month' => '1 Months Plan',
+                            '3months' => '3 Months Plan',
+                            '6months' => '6 Months Plan',
+                            '1year' => '1 Year Plan',
+                            '2year' => '2 Years Plan',
+                        ]),
+                        Forms\Components\TextInput::make('subscription_duration')
+                        ->label('Subscription Duration')
+                            ->required()
+                            ->maxLength(255)
+                            ->disabled(),
             ]),
         ]);
     }

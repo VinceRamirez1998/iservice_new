@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('primary_id')->nullable();
             $table->string('secondary_id')->nullable();
             $table->string('certification')->nullable();
+            $table->string('subscription_plan')->nullable();
+            $table->string('subscription_duration')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

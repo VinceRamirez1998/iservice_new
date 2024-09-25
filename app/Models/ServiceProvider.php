@@ -25,6 +25,8 @@ class ServiceProvider extends Model
         'service',
         'certification',
         'gender',
+        'subscription_plan',
+        'subscription_duration',
         'user_id', // Ensure user_id is fillable
     ];
 

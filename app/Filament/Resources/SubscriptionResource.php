@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SubscriptionResource\Pages;
-use App\Filament\Resources\SubscriptionResource\RelationManagers;
-use App\Models\Subscription;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Subscription;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\SubscriptionResource\Pages;
+use App\Filament\Resources\SubscriptionResource\RelationManagers;
 
 class SubscriptionResource extends Resource
 {
@@ -38,15 +39,44 @@ class SubscriptionResource extends Resource
                 Forms\Components\TextInput::make('amount')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('pending'),
+                Select::make('status')
+                    ->label('Status')
+                    ->options([
+                        'approved' => 'Approved',
+                        'pending' => 'Pending',
+                        'active' => 'Active',
+                        'deactivated' => 'Deactivated',
+                    ])
+                    ->disabled(),
                 Forms\Components\TextInput::make('reference_no')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('bank')
-                    ->maxLength(255),
+                    Select::make('bank')
+                    ->label('Bank')
+                    ->options([
+                        'gcash' => 'Gcash',
+                        'maya' => 'Maya',
+                        'unionbank' => 'Union Bank',
+                        'bpi' => 'BPI',
+                        'bdo' => 'BDO',
+                        'seabank' => 'Sea Bank',
+                        'landbank' => 'Land Bank',
+                    ]),
+                    Select::make('subscription_plan')
+                    ->label('Subscription Plan')
+                    ->options([
+                        '1month' => '1 Months Plan',
+                        '3months' => '3 Months Plan',
+                        '6months' => '6 Months Plan',
+                        '1year' => '1 Year Plan',
+                        '2year' => '2 Years Plan',
+                    ]),
+                    Forms\Components\TextInput::make('subscription_duration')
+                    ->label('Subscription Duration')
+                        ->required()
+                        ->maxLength(255)
+                        ->disabled(),
+                    
             ]);
     }
 

@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BillingResource\Pages;
-use App\Filament\Resources\BillingResource\RelationManagers;
-use App\Models\Billing;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Billing;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BillingResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BillingResource\RelationManagers;
 
 class BillingResource extends Resource
 {
@@ -38,10 +39,14 @@ class BillingResource extends Resource
                 Forms\Components\TextInput::make('amount')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('pending'),
+                    Select::make('status')
+                    ->label('Status')
+                    ->options([
+                        'approved' => 'Approved',
+                        'pending' => 'Pending',
+                        'active' => 'Active',
+                        'deactivated' => 'Deactivated',
+                    ]),
                 Forms\Components\TextInput::make('reference_no')
                     ->required()
                     ->maxLength(255),

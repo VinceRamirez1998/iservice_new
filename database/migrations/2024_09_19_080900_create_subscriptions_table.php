@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('status')->default('pending'); // Status of the bill
             $table->string('reference_no')->unique(); // Reference number for the bill
             $table->string('bank')->nullable(); // banks
+            $table->string('subscription_plan')->nullable();
+            $table->string('subscription_duration')->nullable();
             $table->timestamps(); // Created and updated timestamps
         });
     }
