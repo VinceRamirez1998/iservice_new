@@ -16,7 +16,7 @@ class CreateUserTriggers extends Migration
             AFTER INSERT ON users
             FOR EACH ROW
             BEGIN
-                IF NEW.role = "2" OR NEW.role = "provider" THEN
+                IF (NEW.role = "2" AND NEW.status = "approved") OR (NEW.role = "provider" AND NEW.status = "approved") THEN
                     INSERT INTO service_providers (
                         name,
                         email,
@@ -55,7 +55,7 @@ class CreateUserTriggers extends Migration
             AFTER UPDATE ON users
             FOR EACH ROW
             BEGIN
-                IF NEW.role = "2" OR NEW.role = "provider" THEN
+                 IF (NEW.role = "2" AND NEW.status = "approved") OR (NEW.role = "provider" AND NEW.status = "approved") THEN
                     UPDATE service_providers
                     SET 
                         name = NEW.name,
@@ -106,7 +106,7 @@ class CreateUserTriggers extends Migration
                             NEW.id
                         );
                     END IF;
-                ELSEIF OLD.role = "2" OR OLD.role = "provider" THEN
+                ELSEIF (OLD.role = "2" AND OLD.status = "approved") OR (OLD.role = "provider" AND OLD.status = "approved") THEN
                     DELETE FROM service_providers
                     WHERE user_id = OLD.id;
                 END IF;

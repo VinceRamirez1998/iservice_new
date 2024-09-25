@@ -117,7 +117,6 @@ class UserResource extends Resource
                         ]),
                         Forms\Components\TextInput::make('subscription_duration')
                         ->label('Subscription Duration')
-                            ->required()
                             ->maxLength(255)
                             ->disabled(),
             ]),
@@ -178,6 +177,9 @@ class UserResource extends Resource
                                 default => 'Unknown', // Fallback if role does not match
                             };
                         })
+                        ->searchable()
+                        ->sortable(),
+                        Tables\Columns\TextColumn::make('status')
                         ->searchable()
                         ->sortable(),
                         Tables\Columns\SelectColumn::make('permission')

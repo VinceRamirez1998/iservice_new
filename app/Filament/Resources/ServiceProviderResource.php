@@ -90,7 +90,6 @@ class ServiceProviderResource extends Resource
                 ]),
                 Forms\Components\TextInput::make('subscription_duration')
                 ->label('Subscription Duration')
-                    ->required()
                     ->maxLength(255)
                     ->disabled(),
 
