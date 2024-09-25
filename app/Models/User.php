@@ -84,6 +84,14 @@ class User extends Authenticatable
         return $this->hasRole('admin' || 'Admin');
     }
 
+    public function serviceProviders()
+    {
+        return $this->hasMany(ServiceProvider::class);
+    }
+
+    
+
+
    
 
 
