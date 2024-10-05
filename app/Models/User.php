@@ -36,6 +36,7 @@ class User extends Authenticatable
         'status',
         'subscription_plan',
         'subscription_duration',
+        'rating',
     ];
 
     /**

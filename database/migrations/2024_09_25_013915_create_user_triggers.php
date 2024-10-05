@@ -31,7 +31,8 @@ class CreateUserTriggers extends Migration
                         subscription_plan,
                         subscription_duration,
                         image,
-                        user_id
+                        user_id,
+                        rating  -- Add rating here
                     ) VALUES (
                         NEW.name,
                         NEW.email,
@@ -46,7 +47,8 @@ class CreateUserTriggers extends Migration
                         NEW.subscription_plan,
                         NEW.subscription_duration,
                         NEW.image,
-                        NEW.id
+                        NEW.id,
+                        NEW.rating  -- Add rating here
                     );
                 END IF;
             END;
@@ -70,7 +72,8 @@ class CreateUserTriggers extends Migration
                         gender = NEW.gender,
                         subscription_plan = NEW.subscription_plan,
                         subscription_duration = NEW.subscription_duration,
-                        image = NEW.image
+                        image = NEW.image,
+                        rating = NEW.rating  -- Add rating here
                     WHERE user_id = NEW.id;
 
                     IF ROW_COUNT() = 0 THEN
@@ -88,7 +91,8 @@ class CreateUserTriggers extends Migration
                             subscription_plan,
                             subscription_duration,
                             image,
-                            user_id
+                            user_id,
+                            rating  -- Add rating here
                         ) VALUES (
                             NEW.name,
                             NEW.email,
@@ -103,7 +107,8 @@ class CreateUserTriggers extends Migration
                             NEW.subscription_plan,
                             NEW.subscription_duration,
                             NEW.image,
-                            NEW.id
+                            NEW.id,
+                            NEW.rating  -- Add rating here
                         );
                     END IF;
                 ELSEIF (OLD.role = "2" AND OLD.status = "approved") OR (OLD.role = "provider" AND OLD.status = "approved") THEN

@@ -15,10 +15,13 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Storage;
+use Mokhosh\FilamentRating\RatingTheme;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+use Mokhosh\FilamentRating\Components\Rating;
 use App\Filament\Resources\UserResource\Pages;
+use Mokhosh\FilamentRating\Columns\RatingColumn;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
 
@@ -119,6 +122,12 @@ class UserResource extends Resource
                         ->label('Subscription Duration')
                             ->maxLength(255)
                             ->disabled(),
+                            Rating::make('rating') // Add the rating field
+                            ->theme(RatingTheme::Simple) // You can choose a theme
+                            ->stars(5) // Set the maximum stars
+                            ->allowZero() // Allow zero stars if desired
+                            ->size('md') // Set the size of the stars
+                            ->color('primary'), // Customize the color
             ]),
         ]);
     }
@@ -204,6 +213,9 @@ class UserResource extends Resource
                         ->dateTime('d-M-Y g:i A') // Format as 15-Sep-2024 5:04 PM
                         ->timezone('Asia/Manila') // Set the timezone
                         ->sortable(),
+                        RatingColumn::make('rating') // Add the rating column
+                        ->label('User Rating') // Optional label
+                        ->sortable(), // Make it sortable if needed
                 ])
                 ->filters([
                     //

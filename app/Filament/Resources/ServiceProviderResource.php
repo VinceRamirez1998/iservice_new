@@ -9,7 +9,10 @@ use Filament\Tables\Table;
 use App\Models\ServiceProvider;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Mokhosh\FilamentRating\RatingTheme;
 use Illuminate\Database\Eloquent\Builder;
+use Mokhosh\FilamentRating\Components\Rating;
+use Mokhosh\FilamentRating\Columns\RatingColumn;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ServiceProviderResource\Pages;
 use App\Filament\Resources\ServiceProviderResource\RelationManagers;
@@ -92,7 +95,13 @@ class ServiceProviderResource extends Resource
                 ->label('Subscription Duration')
                     ->maxLength(255)
                     ->disabled(),
-
+                    Rating::make('rating') // Add the rating field
+                    ->theme(RatingTheme::Simple) // You can choose a theme
+                    ->stars(5) // Set the maximum stars
+                    ->allowZero() // Allow zero stars if desired
+                    ->size('md') // Set the size of the stars
+                    ->color('primary') // Customize the color
+                    ->default(0), // Make sure to set a default if needed
             ]);
     }
 
@@ -149,6 +158,9 @@ class ServiceProviderResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                    RatingColumn::make('rating') // Add the rating column
+                    ->label('User Rating') // Optional label
+                    ->sortable(), // Make it sortable if needed
             ])
             ->filters([
                 //

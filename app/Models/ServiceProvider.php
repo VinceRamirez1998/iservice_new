@@ -28,6 +28,7 @@ class ServiceProvider extends Model
         'subscription_plan',
         'subscription_duration',
         'user_id', // Ensure user_id is fillable
+        'rating'
     ];
 
     public function user()
