@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\SubscriptionResource\Pages;
 
 use App\Filament\Resources\SubscriptionResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions;
 
 class ListSubscriptions extends ListRecords
 {
@@ -19,5 +19,11 @@ class ListSubscriptions extends ListRecords
     protected function getRedirectUrl(): string
     {
     return $this->getResource()::getUrl('index');
+    }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            SubscriptionResource\Widgets\SubscriptionOverview::class,
+        ];
     }
 }

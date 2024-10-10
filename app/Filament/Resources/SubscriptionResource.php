@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\SubscriptionResource\Pages;
 use App\Filament\Resources\SubscriptionResource\RelationManagers;
+use App\Filament\Resources\SubscriptionResource\Widgets\SubscriptionOverview;
 
 class SubscriptionResource extends Resource
 {
@@ -54,29 +55,47 @@ class SubscriptionResource extends Resource
                     Select::make('bank')
                     ->label('Bank')
                     ->options([
-                        'gcash' => 'Gcash',
-                        'maya' => 'Maya',
-                        'unionbank' => 'Union Bank',
-                        'bpi' => 'BPI',
-                        'bdo' => 'BDO',
-                        'seabank' => 'Sea Bank',
-                        'landbank' => 'Land Bank',
+                        'gcash' => 'Gcash | 0956-421-2344 ',
+                        'maya' => 'Maya | 0956-421-2344',
+                        'unionbank' => 'Union Bank | 0956-421-2344',
+                        'bpi' => 'BPI | 0956-421-2344',
+                        'bdo' => 'BDO | 0956-421-2344',
+                        'seabank' => 'Sea Bank | 0956-421-2344',
+                        'landbank' => 'Land Bank | 0956-421-2344',
                     ]),
                     Select::make('subscription_plan')
-                    ->label('Subscription Plan')
-                    ->options([
-                        '1month' => '1 Months Plan',
-                        '3months' => '3 Months Plan',
-                        '6months' => '6 Months Plan',
-                        '1year' => '1 Year Plan',
-                        '2year' => '2 Years Plan',
-                    ]),
-                    Forms\Components\TextInput::make('subscription_duration')
-                    ->label('Subscription Duration')
-                        ->maxLength(255)
-                        ->disabled(),
+                ->label('Subscription Plan')
+                ->options([
+                    '1month' => '1 Month Plan',
+                    '3months' => '3 Month Plan',
+                    '6months' => '6 Month Plan',
+                    '1year' => '1 Year Plan',
+                ])
+                ->reactive() // Make it reactive
+                ->afterStateUpdated(function ($state, callable $set) {
+                    // Update subscription_duration based on selected plan
+                    switch ($state) {
+                        case '1month':
+                            $set('subscription_duration', now()->addMonth()->toDateString());
+                            break;
+                        case '3months':
+                            $set('subscription_duration', now()->addMonths(3)->toDateString());
+                            break;
+                        case '6months':
+                            $set('subscription_duration', now()->addMonths(6)->toDateString());
+                            break;
+                        case '1year':
+                            $set('subscription_duration', now()->addYear()->toDateString());
+                            break;
+                           
+                    } 
+                }),
+            Forms\Components\TextInput::make('subscription_duration')
+                ->label('Subscription Expiration Date')
+                ->maxLength(255)
+                ->disabled(),
+        ]);
                     
-            ]);
     }
 
     public static function table(Table $table): Table
@@ -128,6 +147,13 @@ class SubscriptionResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            SubscriptionOverview::class,
         ];
     }
 
