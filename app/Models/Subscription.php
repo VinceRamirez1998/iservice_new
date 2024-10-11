@@ -20,6 +20,7 @@ class Subscription extends Model
         'bank',
         'subscription_plan',
         'subscription_duration',
+        'image',
     ];
 
 }

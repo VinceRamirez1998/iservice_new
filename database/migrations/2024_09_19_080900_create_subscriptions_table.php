@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('bank')->nullable(); // banks
             $table->string('subscription_plan')->nullable();
             $table->string('subscription_duration')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps(); // Created and updated timestamps
         });
     }

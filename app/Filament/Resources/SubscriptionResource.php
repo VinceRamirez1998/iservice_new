@@ -9,6 +9,7 @@ use Filament\Tables\Table;
 use App\Models\Subscription;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\SubscriptionResource\Pages;
@@ -26,6 +27,10 @@ class SubscriptionResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\FileUpload::make('image')
+                ->downloadable()
+                ->columnSpan(2)
+                ->label('Receipt'),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -102,6 +107,10 @@ class SubscriptionResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                ->url(fn ($record) => Storage::url($record->image))
+                ->label('Image')
+                ->disk('public'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
