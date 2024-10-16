@@ -42,3 +42,5 @@ Route::get('/service-provider/{id}/book', [ServiceBookingController::class, 'boo
 // Route to handle the booking confirmation (when the "Book Now" button is clicked)
 Route::post('/service-provider/{id}/book-confirm', [ServiceBookingController::class, 'confirmBooking'])
     ->name('service.book.confirm');
+
+

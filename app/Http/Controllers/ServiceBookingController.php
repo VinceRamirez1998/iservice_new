@@ -46,7 +46,7 @@ class ServiceBookingController extends Controller
         // For example, you can save a booking record to the database
 
         // Redirect the user with a success message
-        return redirect()->route('book.service', $id)->with('success', 'Booking confirmed for ' . $serviceProvider->name);
+        return redirect()->route('book.service', $id)->with('success', 'Booking sent for ' . $serviceProvider->name);
     }
 
 }

@@ -40,7 +40,7 @@ class UserResource extends Resource
                     Forms\Components\FileUpload::make('image')
                     ->downloadable()
                     ->label('Image')
-                    ->disc('public')
+                    ->disk('public')
                     ->columnSpan(2),
                     Forms\Components\TextInput::make('name')->unique(ignoreRecord: true)->required()->maxLength(255)
                     ->label('Full Name')
