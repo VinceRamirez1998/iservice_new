@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\User\Model;
+use App\Http\Controllers\ServiceBookingController;
+
 
 /*
 |----------------------------------------------------------------------
@@ -30,3 +32,13 @@ Route::get('/auth/pending', [RegistrationController::class, 'pending'])->name('a
 Route::view('/contact', 'contact')->name('contact');
 Route::view('/faq', 'faq')->name('faq');
 Route::view('/about', 'about')->name('about');
+
+
+
+// Route to display the booking page
+Route::get('/service-provider/{id}/book', [ServiceBookingController::class, 'book'])
+    ->name('book.service');
+
+// Route to handle the booking confirmation (when the "Book Now" button is clicked)
+Route::post('/service-provider/{id}/book-confirm', [ServiceBookingController::class, 'confirmBooking'])
+    ->name('service.book.confirm');

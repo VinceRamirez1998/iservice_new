@@ -118,6 +118,7 @@ class ServiceProviderResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
+                ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
@@ -146,10 +147,13 @@ class ServiceProviderResource extends Resource
                 })
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('primary_id')
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->label('Primary ID'),
                 Tables\Columns\ImageColumn::make('secondary_id')
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->label('Secondary ID'),
-                Tables\Columns\ImageColumn::make('certification'),
+                Tables\Columns\ImageColumn::make('certification')
+                ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -166,6 +170,14 @@ class ServiceProviderResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('book_now')
+                ->label('Book Now') // Set the button label
+                ->icon('heroicon-o-calendar') // Optional: add an icon
+                ->url(fn ($record) => route('book.service', $record->id)) // Generate a URL for the booking page
+                ->color('primary') // Set the button color
+                ->openUrlInNewTab() // Open the URL in a new tab
+                ->requiresConfirmation() // Optional: ask for confirmation before proceeding
+                ->tooltip('Click to book this service provider'),
                 // Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
                 // Tables\Actions\DeleteAction::make(),

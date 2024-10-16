@@ -39,7 +39,9 @@ class UserResource extends Resource
                 Forms\Components\Grid::make(columns: 2)->schema([
                     Forms\Components\FileUpload::make('image')
                     ->downloadable()
-                    ->label('Image'),
+                    ->label('Image')
+                    ->disc('public')
+                    ->columnSpan(2),
                     Forms\Components\TextInput::make('name')->unique(ignoreRecord: true)->required()->maxLength(255)
                     ->label('Full Name')
                     ->columnSpan(2),
@@ -112,16 +114,38 @@ class UserResource extends Resource
                         Select::make('subscription_plan')
                         ->label('Subscription Plan')
                         ->options([
-                            '1month' => '1 Months Plan',
+                            'trial' => 'Trial',
+                            '1month' => '1 Month Plan',
                             '3months' => '3 Months Plan',
                             '6months' => '6 Months Plan',
                             '1year' => '1 Year Plan',
-                            '2year' => '2 Years Plan',
-                        ]),
+                        ])
+                        ->reactive() // Make it reactive
+                        ->afterStateUpdated(function ($state, callable $set) {
+                            // Update subscription_duration based on selected plan
+                            switch ($state) {
+                                case '1month':
+                                    $set('subscription_duration', now()->addMonth()->toDateString());
+                                    break;
+                                case '3months':
+                                    $set('subscription_duration', now()->addMonths(3)->toDateString());
+                                    break;
+                                case '6months':
+                                    $set('subscription_duration', now()->addMonths(6)->toDateString());
+                                    break;
+                                case '1year':
+                                    $set('subscription_duration', now()->addYear()->toDateString());
+                                    break;
+                                case 'no_subscription':
+                                    $set('subscription_duration', 'No Subscription');
+                                    break;
+                                   
+                            } 
+                        }),
                         Forms\Components\TextInput::make('subscription_duration')
-                        ->label('Subscription Duration')
-                            ->maxLength(255)
-                            ->disabled(),
+                        ->label('Subscription Expiration Date')
+                        ->maxLength(255)
+                        ->disabled(),
                             Rating::make('rating') // Add the rating field
                             ->theme(RatingTheme::Simple) // You can choose a theme
                             ->stars(5) // Set the maximum stars

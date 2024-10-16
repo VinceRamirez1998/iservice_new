@@ -68,12 +68,13 @@ class SubscriptionResource extends Resource
                         'seabank' => 'Sea Bank | 0956-421-2344',
                         'landbank' => 'Land Bank | 0956-421-2344',
                     ]),
-                    Select::make('subscription_plan')
+                Select::make('subscription_plan')
                 ->label('Subscription Plan')
                 ->options([
+                    'trial' => 'Trial',
                     '1month' => '1 Month Plan',
-                    '3months' => '3 Month Plan',
-                    '6months' => '6 Month Plan',
+                    '3months' => '3 Months Plan',
+                    '6months' => '6 Months Plan',
                     '1year' => '1 Year Plan',
                 ])
                 ->reactive() // Make it reactive
@@ -91,6 +92,9 @@ class SubscriptionResource extends Resource
                             break;
                         case '1year':
                             $set('subscription_duration', now()->addYear()->toDateString());
+                            break;
+                        case 'no_subscription':
+                            $set('subscription_duration', 'No Subscription');
                             break;
                            
                     } 
