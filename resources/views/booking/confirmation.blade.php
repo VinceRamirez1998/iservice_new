@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome CDN -->
     <style>
         body {
-            background-color: black; /* Background color */
-            color: black; /* Text color */
+            background-color: #222831; /* Light gray background */
+            color: #333; /* Darker text color for better contrast */
+            font-family: Arial, sans-serif; /* Clean sans-serif font */
             height: 100vh; /* Full viewport height */
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0;
             padding: 0;
-            position: relative; /* Ensure z-index works */
         }
 
         .booking-container {
@@ -23,47 +23,45 @@
             max-width: 1200px; /* Wider for landscape view */
             width: 90%; /* Responsive width */
             background-color: white; /* Container background */
-            padding: 20px 30px; /* Increased padding for better spacing, left and right */
+            padding: 30px 40px; /* Increased padding for better spacing */
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* More pronounced shadow */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
             display: flex; /* Use flexbox for layout */
             flex-direction: row; /* Arrange items in a row for landscape */
             align-items: flex-start; /* Align items at the top */
-            z-index: 99; /* Higher z-index to stay on top */
             position: relative; /* Needed for z-index to take effect */
         }
 
         .service-image {
-            flex: 0 0 300px; /* Fixed width for the image */
+            flex: 0 0 350px; /* Fixed width for the image */
             text-align: center; /* Center the image */
+            margin-right: 20px; /* Space between image and info */
         }
 
         .booking-info {
             flex: 1; /* Take remaining space */
             max-width: 600px; /* Limit width for information */
-            margin-left: 50px; /* Add margin to the left */
         }
 
         .booking-container h1 {
             font-size: 2rem; /* Slightly smaller heading size */
-            margin-bottom: 15px; /* Reduced margin */
-            letter-spacing: 1px;
+            margin-bottom: 10px; /* Reduced margin */
+            color: #222; /* Darker color for heading */
         }
 
         .booking-container img {
             width: 100%; /* Make image responsive */
             height: auto; /* Maintain aspect ratio */
             border-radius: 8px; /* Rounded corners for the image */
-            border: 1px solid black; /* Border color matching the theme */
+            border: 1px solid #ddd; /* Light border color */
             object-fit: cover; /* Ensure the image covers the area */
             max-height: 300px; /* Max height for image */
         }
 
         .booking-container p {
-            margin-bottom: 10px; /* Spacing between paragraphs */
+            margin-bottom: 8px; /* Spacing between paragraphs */
             font-size: 1rem; /* Adjusted font size for better readability */
-            line-height: 1.4; /* Improved line height */
-            color: black; /* Text color for better contrast */
+            line-height: 1.5; /* Improved line height */
         }
 
         .booking-container .info-section {
@@ -71,31 +69,31 @@
         }
 
         .booking-container button {
-            background-color: #222831; /* Button color */
+            background-color: #222831; /* LinkedIn blue */
             color: white; /* Text color on the button */
-            padding: 10px 25px; /* Button padding */
+            padding: 12px 30px; /* Button padding */
             border: none; /* No border */
             border-radius: 5px; /* Rounded corners */
             font-size: 1.1rem; /* Font size */
             font-weight: bold; /* Bold font */
             text-transform: uppercase; /* Uppercase text */
             cursor: pointer; /* Pointer cursor */
-            transition: background-color 0.3s; /* Smooth transition */
+            transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
             margin-top: 20px; /* Margin for button */
         }
 
         .booking-container button:hover {
             background-color: black; /* Darker shade on hover */
+            transform: scale(1.05); /* Slight zoom effect */
         }
 
         .certification-preview {
             margin-top: 20px; /* Space above the certification preview */
-            background-color: #222831; /* Light background for visibility */
+            background-color: #e7f1fa; /* Light background for visibility */
             padding: 15px; /* Padding for the preview box */
             border-radius: 8px; /* Rounded corners for the preview box */
             width: 100%; /* Full width */
-            color:white;
-            text-align: left; /* Align text to the left */
+            color: black; /* Text color */
         }
 
         /* Align icon and text in preview */
@@ -103,7 +101,7 @@
             display: flex; /* Use flexbox */
             align-items: center; /* Center vertically */
             cursor: pointer; /* Change cursor to pointer */
-            color:gray;
+            color:#385170; /* LinkedIn blue for icons */
         }
 
         .preview i {
@@ -119,7 +117,7 @@
             top: 0;
             width: 100%; /* Full width */
             height: 100%; /* Full height */
-            background-color: rgba(0,0,0,0.8); /* Black with opacity */
+            background-color: rgba(0, 0, 0, 0.8); /* Black with opacity */
             padding: 20px; /* Padding around modal content */
         }
 
@@ -128,22 +126,22 @@
             top: 50%; /* Position from the top */
             left: 50%; /* Position from the left */
             transform: translate(-50%, -50%); /* Center the modal */
-            margin: auto; /* Centering modal content */
             max-width: 500px; /* Maximum width of the modal */
             width: 100%; /* Full width */
             overflow: hidden; /* Hide overflow */
             border-radius: 10px; /* Rounded corners for modal */
+            background-color: white; /* White background for modal */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Modal shadow */
         }
 
         .modal-content img {
             width: 100%; /* Make image responsive */
             height: auto; /* Maintain aspect ratio */
             border-radius: 10px; /* Rounded corners for the image */
-            max-height: 300px; /* Set a maximum height */
         }
 
         .close {
-            color: white;
+            color: #333; /* Dark text for the close button */
             position: absolute; /* Position close button */
             top: 10px;
             right: 25px;
@@ -154,7 +152,7 @@
 
         .close:hover,
         .close:focus {
-            color: #bbb;
+            color: #0077b5; /* Change color on hover */
             text-decoration: none;
         }
     </style>
@@ -194,21 +192,21 @@
 
             <!-- Preview for IDs and Certification -->
             <div class="certification-preview">
-                <h3 style="display: flex; justify-content: center;">UPLOADED ID's</h3>
+                <h3 style="text-align: center;">Uploaded IDs</h3>
                 <p>
-                    <strong style="color: white;">Primary ID:</strong>
+                    <strong>Primary ID:</strong>
                     <span class="preview" data-img="{{ asset('storage/' . $serviceProvider->primary_id) }}">
                         <i class="fas fa-eye"></i> View
                     </span>
                 </p>
                 <p>
-                   <strong style="color: white;">Secondary ID:</strong>
+                    <strong>Secondary ID:</strong>
                     <span class="preview" data-img="{{ asset('storage/' . $serviceProvider->secondary_id) }}">
                         <i class="fas fa-eye"></i> View
                     </span>
                 </p>
                 <p>
-                   <strong style="color: white;">Certification:</strong>
+                    <strong>Certification:</strong>
                     <span class="preview" data-img="{{ asset('storage/' . $serviceProvider->certification) }}">
                         <i class="fas fa-eye"></i> View
                     </span>
@@ -227,7 +225,7 @@
     <div id="myModal" class="modal">
         <span class="close">&times;</span>
         <div class="modal-content">
-            <img id="modalImage" style="width:100%;">
+            <img id="modalImage">
         </div>
     </div>
 
