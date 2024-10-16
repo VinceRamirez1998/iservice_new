@@ -112,8 +112,10 @@ class ServiceProviderResource extends Resource
              
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
+                ->limit(25)
                 ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
+                ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
@@ -123,9 +125,10 @@ class ServiceProviderResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('complete_address')
+                ->limit(15)
                     ->searchable(),
                     Tables\Columns\TextColumn::make('role')
-                    // ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->formatStateUsing(function ($record) {
                         return match ($record->role) {
                             '1' => 'Admin',

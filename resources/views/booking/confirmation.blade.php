@@ -101,7 +101,7 @@
             display: flex; /* Use flexbox */
             align-items: center; /* Center vertically */
             cursor: pointer; /* Change cursor to pointer */
-            color:#385170; /* LinkedIn blue for icons */
+            color: #385170; /* LinkedIn blue for icons */
         }
 
         .preview i {
@@ -155,20 +155,37 @@
             color: #0077b5; /* Change color on hover */
             text-decoration: none;
         }
+
+        /* Success notification styles */
+        .alert {
+            position: absolute; /* Position the alert absolutely */
+            top: 20px; /* Space from the top */
+            right: 20px; /* Space from the right */
+            background-color: #4caf50; /* Green background */
+            color: white; /* White text */
+            padding: 15px; /* Padding for alert */
+            border-radius: 5px; /* Rounded corners */
+            z-index: 10; /* Sit on top */
+            display: none; /* Hidden by default */
+        }
+
+        .alert.show {
+            display: block; /* Show alert */
+        }
     </style>
 </head>
 <body>
     <div class="booking-container">
+        <!-- Success Alert -->
+        @if (session('success'))
+            <div class="alert show">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="service-image">
             <h1>Book Service Provider</h1>
-
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
             <!-- Display Service Provider's Image -->
-             
             @if($serviceProvider->image)
                 <img src="{{ asset('storage/' . $serviceProvider->image) }}" alt="{{ $serviceProvider->name }}'s Image">
             @else
@@ -230,6 +247,15 @@
     </div>
 
     <script>
+        // Show alert if session success is present
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.add('show');
+            setTimeout(() => {
+                alert.classList.remove('show'); // Hide after some time
+            }, 3000); // Adjust time in milliseconds
+        }
+
         // Get the modal
         var modal = document.getElementById("myModal");
 
