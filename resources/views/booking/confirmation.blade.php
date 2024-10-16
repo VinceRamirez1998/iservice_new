@@ -161,7 +161,7 @@
             position: absolute; /* Position the alert absolutely */
             top: 20px; /* Space from the top */
             right: 20px; /* Space from the right */
-            background-color: #4caf50; /* Green background */
+            background-color: #222831; /* Green background */
             color: white; /* White text */
             padding: 15px; /* Padding for alert */
             border-radius: 5px; /* Rounded corners */
@@ -179,6 +179,7 @@
         <!-- Success Alert -->
         @if (session('success'))
             <div class="alert show">
+            <i class="fas fa-paper-plane" style="margin-right: 5px;"></i> <!-- Airplane icon -->
                 {{ session('success') }}
             </div>
         @endif
