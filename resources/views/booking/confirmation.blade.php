@@ -7,55 +7,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome CDN -->
     <style>
         body {
-            background-color: #222831; /* Light gray background */
+            background-color: #222831; /* Dark background */
             color: #333; /* Darker text color for better contrast */
             font-family: Arial, sans-serif; /* Clean sans-serif font */
-            height: 100vh; /* Full viewport height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
             margin: 0;
-            padding: 0;
+            padding: 20px; /* Padding around the body */
+            display: flex; /* Flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
         }
 
         .booking-container {
-            text-align: left; /* Align text to the left */
             max-width: 1200px; /* Wider for landscape view */
             width: 90%; /* Responsive width */
             background-color: white; /* Container background */
-            padding: 30px 40px; /* Increased padding for better spacing */
+            padding: 30px; /* Padding for better spacing */
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
-            display: flex; /* Use flexbox for layout */
-            flex-direction: row; /* Arrange items in a row for landscape */
-            align-items: flex-start; /* Align items at the top */
-            position: relative; /* Needed for z-index to take effect */
+            display: flex; /* Use flex for layout */
+            gap: 20px; /* Space between items */
         }
 
         .service-image {
-            flex: 0 0 350px; /* Fixed width for the image */
+            flex: 1; /* Allow the image section to take available space */
             text-align: center; /* Center the image */
-            margin-right: 20px; /* Space between image and info */
         }
 
         .booking-info {
-            flex: 1; /* Take remaining space */
-            max-width: 600px; /* Limit width for information */
+            flex: 1; /* Allow the booking info section to take available space */
+            border: 1px solid #ddd; /* Border around the info */
+            padding: 20px; /* Padding inside the booking info */
+            border-radius: 8px; /* Rounded corners */
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack items vertically */
+            gap: 10px; /* Space between items */
         }
 
         .booking-container h1 {
-            font-size: 2rem; /* Slightly smaller heading size */
+            font-size: 2rem; /* Heading size */
             margin-bottom: 10px; /* Reduced margin */
             color: #222; /* Darker color for heading */
         }
 
         .booking-container img {
-            width: 100%; /* Make image responsive */
+            width: 300px; /* Fixed width for the image */
             height: auto; /* Maintain aspect ratio */
             border-radius: 8px; /* Rounded corners for the image */
             border: 1px solid #ddd; /* Light border color */
             object-fit: cover; /* Ensure the image covers the area */
-            max-height: 300px; /* Max height for image */
         }
 
         .booking-container p {
@@ -64,13 +64,30 @@
             line-height: 1.5; /* Improved line height */
         }
 
-        .booking-container .info-section {
-            margin-bottom: 20px; /* Space before the button */
+        .certification-preview {
+            margin-top: 20px; /* Space above the certification preview */
+            background-color: #e7f1fa; /* Light background for visibility */
+            padding: 15px; /* Padding for the preview box */
+            border-radius: 8px; /* Rounded corners for the preview box */
+            color: black; /* Text color */
+        }
+
+        /* Align icon and text in preview */
+        .preview {
+            display: flex; /* Use flexbox */
+            align-items: center; /* Center vertically */
+            cursor: pointer; /* Change cursor to pointer */
+            color: #385170; /* Color for icons */
+            margin-top: 5px; /* Spacing between previews */
+        }
+
+        .preview i {
+            margin-right: 5px; /* Space between icon and text */
         }
 
         .booking-container button {
-            background-color: #222831; /* LinkedIn blue */
-            color: white; /* Text color on the button */
+            background-color: #222831; /* Button color */
+            color: white; /* Text color */
             padding: 12px 30px; /* Button padding */
             border: none; /* No border */
             border-radius: 5px; /* Rounded corners */
@@ -80,32 +97,12 @@
             cursor: pointer; /* Pointer cursor */
             transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
             margin-top: 20px; /* Margin for button */
+            width: 100%; /* Full width for button */
         }
 
         .booking-container button:hover {
             background-color: black; /* Darker shade on hover */
             transform: scale(1.05); /* Slight zoom effect */
-        }
-
-        .certification-preview {
-            margin-top: 20px; /* Space above the certification preview */
-            background-color: #e7f1fa; /* Light background for visibility */
-            padding: 15px; /* Padding for the preview box */
-            border-radius: 8px; /* Rounded corners for the preview box */
-            width: 100%; /* Full width */
-            color: black; /* Text color */
-        }
-
-        /* Align icon and text in preview */
-        .preview {
-            display: flex; /* Use flexbox */
-            align-items: center; /* Center vertically */
-            cursor: pointer; /* Change cursor to pointer */
-            color: #385170; /* LinkedIn blue for icons */
-        }
-
-        .preview i {
-            margin-right: 5px; /* Space between icon and text */
         }
 
         /* Modal styles */
@@ -161,10 +158,11 @@
             position: absolute; /* Position the alert absolutely */
             top: 20px; /* Space from the top */
             right: 20px; /* Space from the right */
-            background-color: #222831; /* Green background */
+            background-color: #222831; /* Dark background */
+            border: solid 1px white;
             color: white; /* White text */
             padding: 15px; /* Padding for alert */
-            border-radius: 5px; /* Rounded corners */
+            border-radius: 10px; /* Rounded corners */
             z-index: 10; /* Sit on top */
             display: none; /* Hidden by default */
         }
@@ -179,7 +177,7 @@
         <!-- Success Alert -->
         @if (session('success'))
             <div class="alert show">
-            <i class="fas fa-paper-plane" style="margin-right: 5px;"></i> <!-- Airplane icon -->
+                <i class="fas fa-paper-plane" style="margin-right: 5px;"></i> <!-- Airplane icon -->
                 {{ session('success') }}
             </div>
         @endif
@@ -210,7 +208,7 @@
 
             <!-- Preview for IDs and Certification -->
             <div class="certification-preview">
-                <h3 style="text-align: center;">Uploaded IDs</h3>
+                <h3>Uploaded IDs</h3>
                 <p>
                     <strong>Primary ID:</strong>
                     <span class="preview" data-img="{{ asset('storage/' . $serviceProvider->primary_id) }}">
