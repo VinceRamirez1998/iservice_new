@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\ServiceProviderResource\Pages;
 
-use App\Filament\Resources\ServiceProviderResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\UserResource;
+use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\ServiceProviderResource;
+use App\Filament\Resources\ServiceProviderResource\Widgets\ProcessChart;
 
 class ListServiceProviders extends ListRecords
 {
@@ -15,6 +16,12 @@ class ListServiceProviders extends ListRecords
     {
         return [
             // Actions\CreateAction::make(),
+        ];
+    }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ProcessChart::class,
         ];
     }
 }
