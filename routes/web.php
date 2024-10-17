@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegistrationController;
 use App\User\Model;
+use Illuminate\Support\Facades\Route;
+use App\Filament\Resources\MyBookingResource;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ServiceBookingController;
 
 
@@ -44,3 +45,4 @@ Route::post('/service-provider/{id}/book-confirm', [ServiceBookingController::cl
     ->name('service.book.confirm');
 
 
+Route::get('/my-bookings', MyBookingResource::class . '@index')->name('my_bookings.index');

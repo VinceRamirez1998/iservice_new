@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_providers', function (Blueprint $table) {
+        Schema::create('my_bookings', function (Blueprint $table) {
             $table->id();
             // Foreign key with cascading delete and update
             $table->foreignId('user_id')
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->string('phone')->nullable();
             $table->string('status')->default('active');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->string('complete_address')->nullable();
             $table->string('role')->nullable();
             $table->string('service')->nullable();
@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_providers');
+        Schema::dropIfExists('my_bookings');
     }
 };

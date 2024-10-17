@@ -8,6 +8,7 @@ use App\Models\Billing;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\BillingResource\Pages;
@@ -17,6 +18,10 @@ use App\Filament\Resources\BillingResource\RelationManagers;
 class BillingResource extends Resource
 {
     protected static ?string $model = Billing::class;
+
+    // This property prevents the resource from registering navigation automatically
+    protected static bool $shouldRegisterNavigation = false;
+
 
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
     protected static ?string $navigationGroup = 'Invoice';

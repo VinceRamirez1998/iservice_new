@@ -5,23 +5,23 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
+use App\Models\MyBooking;
 use Filament\Tables\Table;
-use App\Models\ServiceProvider;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Mokhosh\FilamentRating\RatingTheme;
 use Illuminate\Database\Eloquent\Builder;
 use Mokhosh\FilamentRating\Components\Rating;
 use Mokhosh\FilamentRating\Columns\RatingColumn;
+use App\Filament\Resources\MyBookingResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ServiceProviderResource\Pages;
-use App\Filament\Resources\ServiceProviderResource\RelationManagers;
+use App\Filament\Resources\MyBookingResource\RelationManagers;
 
-class ServiceProviderResource extends Resource
+class MyBookingResource extends Resource
 {
-    protected static ?string $model = ServiceProvider::class;
+    protected static ?string $model = MyBooking::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-wrench';
+    protected static ?string $navigationIcon = 'heroicon-o-bookmark';
 
     public static function form(Form $form): Form
     {
@@ -185,21 +185,12 @@ class ServiceProviderResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('book_now')
-                ->label('Book Now') // Set the button label
-                ->icon('heroicon-o-calendar') // Optional: add an icon
-                ->url(fn ($record) => route('book.service', $record->id)) // Generate a URL for the booking page
-                ->color('primary') // Set the button color
-                ->openUrlInNewTab() // Open the URL in a new tab
-                ->requiresConfirmation() // Optional: ask for confirmation before proceeding
-                ->tooltip('Click to book this service provider'),
-                // Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -214,9 +205,9 @@ class ServiceProviderResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListServiceProviders::route('/'),
-            // 'create' => Pages\CreateServiceProvider::route('/create'),
-            // 'edit' => Pages\EditServiceProvider::route('/{record}/edit'),
+            'index' => Pages\ListMyBookings::route('/'),
+            'create' => Pages\CreateMyBooking::route('/create'),
+            'edit' => Pages\EditMyBooking::route('/{record}/edit'),
         ];
     }
 }
