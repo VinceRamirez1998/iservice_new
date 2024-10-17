@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\MyBooking;
 use Illuminate\Http\Request;
+use App\Models\CustomerBooking;
 use App\Models\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +45,7 @@ class ServiceBookingController extends Controller
     {
         // Fetch the service provider
         $serviceProvider = ServiceProvider::findOrFail($id);
+        $user = Auth::user(); // Get the authenticated user
 
         // Here you can handle the actual booking logic
         // For example, you can save a booking record to the database
@@ -64,6 +67,19 @@ class ServiceBookingController extends Controller
             'role' => $serviceProvider->role, // The role of the service provider
             'service' => $serviceProvider->service, // The service being booked
             'approval' => $serviceProvider->approval, // Default status for new bookings
+        ]);
+
+        $customerBooking = CustomerBooking::create([
+            'user_id' => $user->id, // Use the authenticated user's ID (customer)
+            'name' => $user->name,  // Get the name of the authenticated user
+            'image' => $user->image ?? 'default_image_path.png',  // Fallback to a default image if user doesn't have one
+            'email' => $user->email,  // Use the authenticated user's email
+            'phone' => $user->phone, // Use the authenticated user's phone
+            'gender' => $user->gender,  // Use the authenticated user's gender
+            'complete_address' => $user->complete_address,  // Use the user's complete address
+            'role' => 'Customer', // Set role to Customer
+            'service' => $serviceProvider->service, // The service being booked (related to provider)
+            'approval' => 'pending', // Set default status for new bookings
         ]);
 
         // Redirect the user with a success message

@@ -131,12 +131,13 @@ class MyBookingResource extends Resource
                 ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('approval')
-                ->toggleable(isToggledHiddenByDefault: true)
+                // ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('complete_address')
+                         ->toggleable(isToggledHiddenByDefault: true)
                 ->limit(15)
                     ->searchable(),
                     Tables\Columns\TextColumn::make('role')
