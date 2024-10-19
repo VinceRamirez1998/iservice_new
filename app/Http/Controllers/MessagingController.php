@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\MyBooking;
 use App\Models\Message;
-use App\Http\Resources\MessageResource;
+use App\Filament\Resources\MessageResource;
 use Illuminate\Http\Request;
 
 class MessagingController extends Controller

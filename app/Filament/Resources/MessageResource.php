@@ -13,8 +13,10 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\Action;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class MessageResource extends Resource
+
+class MessageResource extends JsonResource
 {
     protected static ?string $model = Message::class;
     public static function getNavigationBadge(): ?string
@@ -22,7 +24,21 @@ class MessageResource extends Resource
         return static::getModel()::count();
     }
 
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'content' => $this->content,
+            'sender_id' => $this->sender_id,
+            'receiver_id' => $this->receiver_id,
+            'status' => $this->status,
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+        ];
+    }
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    
 
     public static function form(Form $form): Form
     {
