@@ -27,7 +27,7 @@ class MyBookingResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return static::getModel()::where('user_id', Auth::id())->count();
     }
 
     public static function shouldRegisterNavigation(): bool

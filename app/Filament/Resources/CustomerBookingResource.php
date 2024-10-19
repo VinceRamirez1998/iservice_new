@@ -30,8 +30,9 @@ class CustomerBookingResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return static::getModel()::where('user_id', Auth::id())->count();
     }
+    
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
 
     public static function shouldRegisterNavigation(): bool
@@ -112,8 +113,9 @@ class CustomerBookingResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-        
+
+            return $table
+            
             ->columns([
              
                 Tables\Columns\ImageColumn::make('image'),
@@ -155,63 +157,64 @@ class CustomerBookingResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Action::make('accept')
-                    ->label('Accept')
-                    ->icon('heroicon-o-check-circle')
-                    ->action(function (CustomerBooking $record) {
-                        // Update the approval status in CustomerBooking
-                        $record->update(['approval' => 'approved']);
-                        
-                        // Find the corresponding MyBooking entry
-                        $myBooking = MyBooking::where('user_id', $record->user_id) // Assuming you relate by user_id
-                            ->where('service', $record->service) // or any other matching criteria
-                            ->first();
-            
-                        // Update the approval status in MyBooking if it exists
-                        if ($myBooking) {
-                            $myBooking->update(['approval' => 'approved']);
-                        }
-            
-                        // Optionally, notify the user
-                        Notification::make()
-                            ->title('Booking Accepted')
-                            ->success()
-                            ->send();
-            
-                        // Redirect to the index page
-                        return redirect()->route('filament.admin.resources.customer-bookings.index');
-                    })
-                    ->requiresConfirmation() // Optional confirmation
-                    ->color('success') // Optional color styling
-                    ->size('lg'), // Adjust size to large
-                Action::make('reject')
-                    ->label('Reject')
-                    ->icon('heroicon-o-x-circle') // Optional: add an icon
-                    ->action(function (CustomerBooking $record) {
-                        // Update the approval status in CustomerBooking
-                        $record->update(['approval' => 'rejected']);
-                        
-                        // Find the corresponding MyBooking entry
-                        $myBooking = MyBooking::where('user_id', $record->user_id) // Assuming you relate by user_id
-                            ->where('service', $record->service) // or any other matching criteria
-                            ->first();
-            
-                        // Update the approval status in MyBooking if it exists
-                        if ($myBooking) {
-                            $myBooking->update(['approval' => 'rejected']);
-                        }
-            
-                        // Optionally, notify the user
-                        Notification::make()
-                            ->title('Booking Rejected')
-                            ->success()
-                            ->send();
-            
-                        // Redirect to the index page
-                        return redirect()->route('filament.admin.resources.customer-bookings.index');
-                    })
-                    ->requiresConfirmation() // Optional confirmation
-                    ->color('danger') // Optional color styling
-                    ->size('lg'), // Adjust size to large
+                ->label('Accept')
+                ->icon('heroicon-o-check-circle')
+                ->action(function (CustomerBooking $record) {
+                    // Update the approval status in CustomerBooking
+                    $record->update(['approval' => 'approved']);
+                    
+                    // Find the corresponding MyBooking entry by matching user_id and service_provider_id
+                    $myBooking = MyBooking::where('user_id', $record->user_id)
+                        ->where('service_provider_id', $record->service_provider_id) // Use service_provider_id for better accuracy
+                        ->first();
+                
+                    // Update the approval status in MyBooking if it exists
+                    if ($myBooking) {
+                        $myBooking->update(['approval' => 'approved']);
+                    }
+                
+                    // Optionally, notify the user
+                    Notification::make()
+                        ->title('Booking Accepted')
+                        ->success()
+                        ->send();
+                
+                    // Redirect to the index page
+                    return redirect()->route('filament.admin.resources.customer-bookings.index');
+                })
+                ->requiresConfirmation()
+                ->color('success')
+                ->size('lg'),
+                
+            Action::make('reject')
+                ->label('Reject')
+                ->icon('heroicon-o-x-circle')
+                ->action(function (CustomerBooking $record) {
+                    // Update the approval status in CustomerBooking
+                    $record->update(['approval' => 'rejected']);
+                    
+                    // Find the corresponding MyBooking entry by matching user_id and service_provider_id
+                    $myBooking = MyBooking::where('user_id', $record->user_id)
+                        ->where('service_provider_id', $record->service_provider_id) // Use service_provider_id for better accuracy
+                        ->first();
+                
+                    // Update the approval status in MyBooking if it exists
+                    if ($myBooking) {
+                        $myBooking->update(['approval' => 'rejected']);
+                    }
+                
+                    // Optionally, notify the user
+                    Notification::make()
+                        ->title('Booking Rejected')
+                        ->success()
+                        ->send();
+                
+                    // Redirect to the index page
+                    return redirect()->route('filament.admin.resources.customer-bookings.index');
+                })
+                ->requiresConfirmation()
+                ->color('danger')
+                ->size('lg'),
                 ]);
     }
 
@@ -221,6 +224,8 @@ class CustomerBookingResource extends Resource
             //
         ];
     }
+
+
 
     public static function getPages(): array
     {

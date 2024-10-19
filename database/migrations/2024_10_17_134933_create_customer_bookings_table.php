@@ -20,6 +20,10 @@ return new class extends Migration
                   ->onUpdate('cascade')   // Cascade updates
                   ->nullable();           // Allow nulls on create if necessary
 
+            // Add the service_provider_id
+            $table->foreignId('service_provider_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+
+
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('gender')->nullable();
@@ -32,13 +36,13 @@ return new class extends Migration
             $table->string('permission')->nullable();
             $table->string('primary_id')->nullable();
             $table->string('secondary_id')->nullable();
-            $table->timestamp('reschedule')->nullable(); // Add this line
-            $table->timestamp('schedule')->nullable(); // Add this line
+            $table->timestamp('reschedule')->nullable();
+            $table->timestamp('schedule')->nullable();
             $table->string('certification')->nullable();
             $table->string('subscription_plan')->nullable();
             $table->string('approval')->default('pending');
             $table->string('subscription_duration')->nullable();
-            $table->unsignedDecimal('rating', 3, 2)->nullable(); // Add the rating column
+            $table->unsignedDecimal('rating', 3, 2)->nullable(); // Rating column
             $table->rememberToken();
             $table->timestamps();
         });

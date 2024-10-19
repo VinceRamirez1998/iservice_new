@@ -35,4 +35,9 @@ class CustomerBooking extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function serviceProvider()
+    {
+        return $this->belongsTo(ServiceProvider::class, 'service_provider_id'); // Relationship to service provider
+    }
 }
