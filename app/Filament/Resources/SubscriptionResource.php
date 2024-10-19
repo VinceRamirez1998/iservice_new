@@ -8,6 +8,8 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Subscription;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,6 +24,33 @@ class SubscriptionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Invoice';
+    public static function shouldRegisterNavigation(): bool
+    {
+        $user = Auth::user();
+    
+        // If there is no authenticated user, return false
+        if (!$user) {
+            return false;
+        }
+    
+        // Fetch the role of the authenticated user from the 'users' table
+        $role = DB::table('users')
+            ->where('id', $user->id)
+            ->value('role'); // Get the role column value
+    
+        // Check if the role is '2' or '3', otherwise handle '1'
+        if (in_array($role, ['1','2'])) {
+            // Show navigation for roles '2' and '3'
+            return true;
+        } elseif ($role == '3') {
+            // Perform action for role '1' (e.g., hide the navigation)
+            return false;
+        }
+    
+        // If role is not '1', '2', or '3', default to hiding navigation
+        return false;
+    }
+    
 
     public static function form(Form $form): Form
     {
