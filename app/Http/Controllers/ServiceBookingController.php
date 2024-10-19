@@ -43,6 +43,10 @@ class ServiceBookingController extends Controller
 
         public function confirmBooking(Request $request, $id)
     {
+
+        $request->validate([
+            'schedule' => 'required|date', // Validate schedule as required date
+        ]);
         // Fetch the service provider
         $serviceProvider = ServiceProvider::findOrFail($id);
         $user = Auth::user(); // Get the authenticated user
@@ -67,6 +71,7 @@ class ServiceBookingController extends Controller
             'role' => $serviceProvider->role, // The role of the service provider
             'service' => $serviceProvider->service, // The service being booked
             'approval' => $serviceProvider->approval, // Default status for new bookings
+            'schedule' => $request->schedule,
         ]);
 
         $customerBooking = CustomerBooking::create([
@@ -80,6 +85,7 @@ class ServiceBookingController extends Controller
             'role' => 'Customer', // Set role to Customer
             'service' => $serviceProvider->service, // The service being booked (related to provider)
             'approval' => 'pending', // Set default status for new bookings
+            'schedule' => $request->schedule,
         ]);
 
         // Redirect the user with a success message

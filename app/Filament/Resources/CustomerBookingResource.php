@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
@@ -98,6 +99,14 @@ class CustomerBookingResource extends Resource
                     ->required()
                     ->columnSpan(2)
                     ->maxLength(255),
+                    Forms\Components\DateTimePicker::make('schedule')
+                    ->columnSpan(2)
+                    ->label('Booking Schedule')
+                    ->default(Carbon::now()) // Default to current date and time
+                    ->format('d-M-Y g:i A') // Format as 15-Sep-2024 5:04 PM
+                    ->timezone('Asia/Manila') // Set the timezone
+                    // ->default(Date::now()->timezone('Asia/Manila')->format('d-M-Y g:i A'))
+                    ->disabled(),
             ]);
     }
 

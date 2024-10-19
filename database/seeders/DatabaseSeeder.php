@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'provider@gmail.com',
             'password' => bcrypt('provider'), // Set a default password
             'role'=>'2',
+            'status'=>'approved',
         ]);
 
         $customer = User::factory()->create([
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'customer@gmail.com',
             'password' => bcrypt('customer'), // Set a default password
             'role'=>'3',
+            'status'=>'N/A',
         ]);
 
         // Define roles

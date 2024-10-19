@@ -35,8 +35,8 @@ return new class extends Migration
             $table->string('certification')->nullable();
             $table->string('subscription_plan')->nullable();
             $table->string('approval')->default('pending');
-            $table->string('reschedule')->nullable();
-            $table->string('schedule')->nullable();
+            $table->timestamp('reschedule')->nullable(); // Add this line
+            $table->timestamp('schedule')->nullable(); // Add this line
             $table->string('subscription_duration')->nullable();
             $table->unsignedDecimal('rating', 3, 2)->nullable(); // Add the rating column
             $table->rememberToken();

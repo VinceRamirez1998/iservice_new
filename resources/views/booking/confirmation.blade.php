@@ -170,6 +170,25 @@
         .alert.show {
             display: block; /* Show alert */
         }
+
+        /* Schedule selection styles */
+        .schedule-selection {
+            margin-top: 20px; /* Space above schedule selection */
+            display: flex; /* Use flexbox */
+            flex-direction: column; /* Stack items vertically */
+            gap: 10px; /* Space between items */
+        }
+
+        .schedule-selection label {
+            font-weight: bold; /* Bold label */
+        }
+
+        .schedule-selection input[type="datetime-local"] {
+            padding: 10px; /* Padding for input */
+            border-radius: 5px; /* Rounded corners for input */
+            border: 1px solid #ddd; /* Border color */
+            font-size: 1rem; /* Font size */
+        }
     </style>
 </head>
 <body>
@@ -190,22 +209,7 @@
             @else
                 <img src="placeholder-image.jpg" alt="Placeholder Image"> <!-- Optional placeholder -->
             @endif
-        </div>
-
-        <div class="booking-info">
-            <h2>{{ $serviceProvider->name }}</h2>
-            <div class="info-section">
-                <p><strong>Email:</strong> {{ $serviceProvider->email }}</p>
-                <p><strong>Phone:</strong> {{ $serviceProvider->phone }}</p>
-                <p><strong>Address:</strong> {{ $serviceProvider->complete_address }}</p>
-                <p><strong>Gender:</strong> {{ $serviceProvider->gender }}</p>
-                <p><strong>Role:</strong> {{ $role }}</p>
-                <p><strong>Service:</strong> {{ $service }}</p>
-                <p><strong>Subscription Plan:</strong> {{ $serviceProvider->subscription_plan }}</p>
-                <p><strong>Status:</strong> {{ $serviceProvider->status }}</p>
-                <p><strong>Rating:</strong> {{ $serviceProvider->rating }}</p>
-            </div>
-
+            
             <!-- Preview for IDs and Certification -->
             <div class="certification-preview">
                 <h3>Uploaded IDs</h3>
@@ -228,15 +232,38 @@
                     </span>
                 </p>
             </div>
+        </div>
 
-            <!-- Form for Booking -->
-            <form action="{{ route('service.book.confirm', $serviceProvider->id) }}" method="POST">
-                @csrf
-                <button type="submit">Book Now</button>
-            </form>
+        <div class="booking-info">
+            <h2>{{ $serviceProvider->name }}</h2>
+            <div class="info-section">
+                <p><strong>Email:</strong> {{ $serviceProvider->email }}</p>
+                <p><strong>Phone:</strong> {{ $serviceProvider->phone }}</p>
+                <p><strong>Address:</strong> {{ $serviceProvider->complete_address }}</p>
+                <p><strong>Gender:</strong> {{ $serviceProvider->gender }}</p>
+                <p><strong>Role:</strong> {{ $role }}</p>
+                <p><strong>Service:</strong> {{ $service }}</p>
+                <p><strong>Subscription Plan:</strong> {{ $serviceProvider->subscription_plan }}</p>
+                <p><strong>Status:</strong> {{ $serviceProvider->status }}</p>
+                <p><strong>Rating:</strong> {{ $serviceProvider->rating }}</p>
+            </div>
+            
+
+                 <!-- Form for Booking -->
+                <form action="{{ route('service.book.confirm', $serviceProvider->id) }}" method="POST">
+                    @csrf
+                    <!-- Schedule Selection -->
+                    <div class="schedule-selection">
+                        <label for="schedule">Select Schedule:</label>
+                        <input type="datetime-local" id="schedule" name="schedule" required>
+                    </div>
+                    <button type="submit">Confirm Booking</button>
+                </form>
+            
         </div>
     </div>
 
+    
     <!-- Modal for Image Preview -->
     <div id="myModal" class="modal">
         <span class="close">&times;</span>

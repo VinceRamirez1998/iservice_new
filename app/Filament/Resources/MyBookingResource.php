@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
@@ -113,6 +114,13 @@ class MyBookingResource extends Resource
                         default => 'Unknown', // Fallback if role does not match
                     };
                 }),
+                Forms\Components\DateTimePicker::make('schedule')
+                ->label('Booking Schedule')
+                ->default(Carbon::now()) // Default to current date and time
+                ->format('d-M-Y g:i A') // Format as 15-Sep-2024 5:04 PM
+                ->timezone('Asia/Manila') // Set the timezone
+                // ->default(Date::now()->timezone('Asia/Manila')->format('d-M-Y g:i A'))
+                ->disabled(),
                 Forms\Components\Grid::make(columns: 3)->schema([
                 Forms\Components\FileUpload::make('primary_id')
                     ->downloadable()

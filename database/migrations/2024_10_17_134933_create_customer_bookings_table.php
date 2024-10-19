@@ -32,8 +32,8 @@ return new class extends Migration
             $table->string('permission')->nullable();
             $table->string('primary_id')->nullable();
             $table->string('secondary_id')->nullable();
-            $table->string('schedule')->nullable();
-            $table->string('reschedule')->nullable();
+            $table->timestamp('reschedule')->nullable(); // Add this line
+            $table->timestamp('schedule')->nullable(); // Add this line
             $table->string('certification')->nullable();
             $table->string('subscription_plan')->nullable();
             $table->string('approval')->default('pending');
