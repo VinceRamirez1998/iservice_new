@@ -27,6 +27,7 @@ class MyBooking extends Model
         'subscription_duration',
         'user_id', // Ensure user_id is fillable
         'rating',
+        'schedule',
         'approval'
     ];
 
