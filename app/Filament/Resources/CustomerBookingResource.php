@@ -113,6 +113,7 @@ class CustomerBookingResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        
             ->columns([
              
                 Tables\Columns\ImageColumn::make('image'),

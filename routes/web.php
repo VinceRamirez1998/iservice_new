@@ -47,5 +47,7 @@ Route::post('/service-provider/{id}/book-confirm', [ServiceBookingController::cl
 
 
 Route::get('/my-bookings', MyBookingResource::class . '@index')->name('my_bookings.index');
+
 Route::get('/message/user/{userId}/{bookingId}', [MessagingController::class, 'show'])->name('message.user');
 Route::post('/message/user/{userId}/{bookingId}', [MessagingController::class, 'send'])->name('message.send');
+Route::get('/messages/booking/{bookingId}', [MessagingController::class, 'getMessages'])->name('messages.booking');
