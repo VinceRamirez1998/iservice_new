@@ -20,6 +20,21 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'), // Set a default password
+            'role'=>'admin',
+        ]);
+
+        $provider = User::factory()->create([
+            'name' => 'provider',
+            'email' => 'provider@gmail.com',
+            'password' => bcrypt('provider'), // Set a default password
+            'role'=>'2',
+        ]);
+
+        $customer = User::factory()->create([
+            'name' => 'hehe',
+            'email' => 'customer@gmail.com',
+            'password' => bcrypt('customer'), // Set a default password
+            'role'=>'3',
         ]);
 
         // Define roles
