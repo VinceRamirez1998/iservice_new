@@ -229,6 +229,13 @@ class MyBookingResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('message') // New action for messaging
+                ->label('Message')
+                ->icon('heroicon-o-envelope') // You can use an icon here
+                ->action(function ($record) {
+                    // Logic to handle messaging
+                    return redirect()->route('message.user', ['userId' => $record->user_id, 'bookingId' => $record->id]);
+                }),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

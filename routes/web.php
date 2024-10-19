@@ -3,6 +3,7 @@
 use App\User\Model;
 use Illuminate\Support\Facades\Route;
 use App\Filament\Resources\MyBookingResource;
+use App\Http\Controllers\MessagingController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ServiceBookingController;
 
@@ -46,3 +47,5 @@ Route::post('/service-provider/{id}/book-confirm', [ServiceBookingController::cl
 
 
 Route::get('/my-bookings', MyBookingResource::class . '@index')->name('my_bookings.index');
+Route::get('/message/user/{userId}/{bookingId}', [MessagingController::class, 'show'])->name('message.user');
+Route::post('/message/user/{userId}/{bookingId}', [MessagingController::class, 'send'])->name('message.send');
