@@ -65,25 +65,71 @@
         }
 
         .certification-preview {
-            margin-top: 20px; /* Space above the certification preview */
-            background-color: #e7f1fa; /* Light background for visibility */
-            padding: 15px; /* Padding for the preview box */
-            border-radius: 8px; /* Rounded corners for the preview box */
-            color: black; /* Text color */
-        }
+    margin-top: 30px;
+    background-color: #f4f7fc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: #333;
+    font-family: 'Arial';
+}
 
-        /* Align icon and text in preview */
-        .preview {
-            display: flex; /* Use flexbox */
-            align-items: center; /* Center vertically */
-            cursor: pointer; /* Change cursor to pointer */
-            color: #385170; /* Color for icons */
-            margin-top: 5px; /* Spacing between previews */
-        }
+.certification-preview h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: black;
+    border-bottom: 2px solid #dfe3e8;
+    padding-bottom: 10px;
+}
 
-        .preview i {
-            margin-right: 5px; /* Space between icon and text */
-        }
+.certification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaecef;
+}
+
+.certification-item:last-child {
+    border-bottom: none;
+}
+
+.certification-item strong {
+    font-size: 1.1rem;
+    color: rgb(48, 47, 47);
+}
+
+.certification-item .preview {
+    display: flex;
+    align-items: center;
+    color: black;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.certification-item .preview:hover {
+    color: rgb(243, 143, 29);
+}
+
+.certification-item .preview i {
+    margin-left: 6px;
+}
+
+.certification-item .id-thumbnail {
+    max-width: 40px; /* Set a max width for the thumbnails */
+    max-height: 40px; /* Set a max height for the thumbnails */
+    object-fit: cover; /* Maintain the aspect ratio of the image */
+    margin-right: 10px; /* Add space between the image and the text */
+    border-radius: 4px; /* Optional: Add rounded corners for a refined look */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+
+
 
         .booking-container button {
             background-color: #222831; /* Button color */
@@ -213,24 +259,27 @@
             <!-- Preview for IDs and Certification -->
             <div class="certification-preview">
                 <h3>Uploaded IDs</h3>
-                <p>
+                <div class="certification-item">
                     <strong>Primary ID:</strong>
                     <span class="preview" data-img="{{ asset('storage/' . $serviceProvider->primary_id) }}">
+                        <img src="{{ asset('storage/' . $serviceProvider->primary_id) }}" alt="Primary ID" class="id-thumbnail">
                         <i class="fas fa-eye"></i> View
                     </span>
-                </p>
-                <p>
+                </div>
+                <div class="certification-item">
                     <strong>Secondary ID:</strong>
                     <span class="preview" data-img="{{ asset('storage/' . $serviceProvider->secondary_id) }}">
+                        <img src="{{ asset('storage/' . $serviceProvider->secondary_id) }}" alt="Secondary ID" class="id-thumbnail">
                         <i class="fas fa-eye"></i> View
                     </span>
-                </p>
-                <p>
+                </div>
+                <div class="certification-item">
                     <strong>Certification:</strong>
                     <span class="preview" data-img="{{ asset('storage/' . $serviceProvider->certification) }}">
+                        <img src="{{ asset('storage/' . $serviceProvider->certification) }}" alt="Certification" class="id-thumbnail">
                         <i class="fas fa-eye"></i> View
                     </span>
-                </p>
+                </div>
             </div>
         </div>
 

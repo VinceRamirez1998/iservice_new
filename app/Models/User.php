@@ -33,6 +33,7 @@ class User extends Authenticatable
         'service',
         'certification',
         'gender',
+        'service_id', 
         'status',
         'subscription_plan',
         'subscription_duration',

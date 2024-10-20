@@ -6,44 +6,68 @@
     <title>Send Message</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Overall container styling */
+        /* Body and container styling */
         body {
-            background-color: black;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
+            background-color: #202020;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #333;
         }
 
-        /* User details section styling */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .close-button {
+            background-color: #e8a804;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-button:hover {
+            background-color: #fbbf24;
+        }
+
+        /* User details styling */
         .user-details {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            padding-bottom: 20px;
         }
 
         .user-details img {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            margin-right: 15px;
-        }
-
-        .user-info {
-            flex-grow: 1;
+            margin-right: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .user-info p {
@@ -52,18 +76,18 @@
             color: #555;
         }
 
-        /* Messages display area */
+        /* Messages display */
         #messages {
             border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 15px;
             background-color: #f9f9f9;
             height: 300px;
             overflow-y: auto;
             margin-bottom: 20px;
         }
 
-        /* Styling for each message */
+        /* Individual message styling */
         .message {
             padding: 10px 0;
             border-bottom: 1px solid #eee;
@@ -81,11 +105,11 @@
             font-weight: bold;
         }
 
-        /* Styling for message status */
+        /* Message status */
         .message-status {
             font-size: 13px;
             color: #888;
-            margin-left: 10px; /* Add space between message and status */
+            margin-left: 10px;
         }
 
         .message-status.read {
@@ -108,40 +132,40 @@
             color: purple;
         }
 
-        /* Styling the message form */
+        /* Message form styling */
         .form-group {
-            max-width: 780px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
-            display: block;
             font-size: 14px;
             color: #333;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            display: block;
         }
 
         .form-group textarea {
             width: 100%;
-            padding: 10px;
+            max-width: 100%; /* Ensures textarea doesn't extend beyond the container */
+            padding: 15px;
             font-size: 14px;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 3px solid #fbbf24;
-            resize: none;
-            min-height: 80px;
+            min-height: 100px;
+            box-sizing: border-box; /* Ensures padding is included in width calculation */
         }
+
 
         button {
             display: block;
-            padding: 10px 20px;
+            width: 100%;
+            padding: 12px;
             background-color: #e8a804;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
         }
 
         button:hover {
@@ -150,10 +174,22 @@
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h2>Message</h2>
+        <!-- Header with close button -->
+        <div class="header">
+            <h2>Message</h2>
+        
+            @if(auth()->user()->role == 2)
+                <!-- If the user has role 2, use customer bookings route -->
+                <a href="{{ route('filament.admin.resources.customer-bookings.index') }}" class="close-button">Close</a>
+            @else
+                <!-- For other roles, use my bookings route -->
+                <a href="{{ route('filament.admin.resources.my-bookings.index') }}" class="close-button">Close</a>
+            @endif
+        </div>
+        
 
+        <!-- User details section -->
         <div class="user-details">
             <img src="{{ asset('storage/' . $user->image) }}" alt="User Image">
             <div class="user-info">
@@ -176,7 +212,7 @@
             @endforeach
         </div>
 
-        <!-- Message Form -->
+        <!-- Message form -->
         <form id="messageForm">
             @csrf
             <div class="form-group">
@@ -184,7 +220,7 @@
                 <textarea name="message" id="message" rows="5" placeholder="Type your message here..." required></textarea>
             </div>
 
-            <button type="submit" class="btn-primary">Send Message</button>
+            <button type="submit">Send Message</button>
         </form>
     </div>
 
