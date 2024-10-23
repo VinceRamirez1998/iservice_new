@@ -23,21 +23,21 @@ class DatabaseSeeder extends Seeder
             'role'=>'admin',
         ]);
 
-        $provider = User::factory()->create([
-            'name' => 'provider',
-            'email' => 'provider@gmail.com',
-            'password' => bcrypt('provider'), // Set a default password
-            'role'=>'2',
-            'status'=>'approved',
-        ]);
+        // $provider = User::factory()->create([
+        //     'name' => 'provider',
+        //     'email' => 'provider@gmail.com',
+        //     'password' => bcrypt('provider'), // Set a default password
+        //     'role'=>'2',
+        //     'status'=>'approved',
+        // ]);
 
-        $customer = User::factory()->create([
-            'name' => 'hehe',
-            'email' => 'customer@gmail.com',
-            'password' => bcrypt('customer'), // Set a default password
-            'role'=>'3',
-            'status'=>'N/A',
-        ]);
+        // $customer = User::factory()->create([
+        //     'name' => 'hehe',
+        //     'email' => 'customer@gmail.com',
+        //     'password' => bcrypt('customer'), // Set a default password
+        //     'role'=>'3',
+        //     'status'=>'N/A',
+        // ]);
 
         // Define roles
         $roles = [
