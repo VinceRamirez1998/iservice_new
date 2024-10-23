@@ -239,8 +239,8 @@ class CustomerBookingResource extends Resource
                     
                         // Redirect to the desired message URL
                         return redirect()->route('message.user', [
-                            'sender_id' => $senderId,
-                            'booking_id' => $bookingId
+                           'userId' => $receiverId, // Use the receiver's ID
+                           'bookingId' => $bookingId  // Use the booking ID
                         ]);
                     })
             

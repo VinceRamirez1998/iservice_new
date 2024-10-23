@@ -109,7 +109,7 @@ class MessageResource extends JsonResource
                 Action::make('message')
                     ->label('Message')
                     ->icon('heroicon-o-envelope')
-                    ->url(fn (Message $record) => route('message.user', ['userId' => $record->receiver_id, 'bookingId' => $record->booking_id]))
+                    ->url(fn (Message $record) => route('message.user', ['receiverId' => $record->receiver_id, 'bookingId' => $record->booking_id]))
                     ->color('primary'),
             ])
             ->bulkActions([

@@ -52,6 +52,3 @@ Route::get('/message/user/{userId}/{bookingId}', [MessagingController::class, 's
 Route::post('/message/user/{userId}/{bookingId}', [MessagingController::class, 'send'])->name('message.send');
 Route::get('/messages/booking/{bookingId}', [MessagingController::class, 'getMessages'])->name('messages.booking');
 
-
-Route::get('/message/user/{sender_id}/{booking_id}', [MessagingController::class, 'show'])
-    ->name('message.user');
