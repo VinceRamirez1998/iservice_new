@@ -89,6 +89,11 @@ class DatabaseSeeder extends Seeder
             'Update Subscription',
             'Delete Subscription',
             'CRUD Subscription',
+            'Create CustomerBooking',
+            'View CustomerBooking',
+            'Update CustomerBooking',
+            'Delete CustomerBooking',
+            'CRUD CustomerBooking',
         ];
 
         // Create permissions
